@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-public class ActiveElements : MonoBehaviour
+public class PActiveElements : MonoBehaviour
 {
-    public Transform cross;
-    public TMP_InputField input_field;
     public Button ready_button;
+    public Transform cross;
     public bool is_active;
     private bool check;
-
 
     private void Start()
     {
@@ -19,22 +16,19 @@ public class ActiveElements : MonoBehaviour
         check = false;
     }
 
-    private void Update()
+    void Update()
     {
         if (!is_active && !check)
         {
             cross.gameObject.SetActive(false);
-            input_field.interactable = false;
             ready_button.interactable = false;
             check = true;
         }
-        else if(is_active && check)
+        else if (is_active && check)
         {
             cross.gameObject.SetActive(true);
+            ready_button.interactable = true;
             check = false;
         }
-
-        if (input_field.text != "" && is_active)
-            ready_button.interactable = true;
     }
 }
