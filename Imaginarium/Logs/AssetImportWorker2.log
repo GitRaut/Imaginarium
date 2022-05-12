@@ -2540,3 +2540,51 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1580.599344 seconds.
+  path: Assets/Photon
+  artifactKey: Guid(98951132346795f438babe7a3183da43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon using Guid(98951132346795f438babe7a3183da43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df9b6b4c61759d2bb6bfd1d8cb1daa9e') in 0.011607 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.863604 seconds.
+  path: Assets/Photon/PhotonUnityNetworking
+  artifactKey: Guid(d2b6672cc770a19438ff06fcb2637630) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking using Guid(d2b6672cc770a19438ff06fcb2637630) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '183257ccd661467b5c69147f464580d8') in 0.005661 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.308082 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos
+  artifactKey: Guid(cb8ec42b3fa78bd4f9a20b7de289d9cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos using Guid(cb8ec42b3fa78bd4f9a20b7de289d9cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aaeab35b34dbfa6bd973ff3f19a89197') in 0.005639 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.044859 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef
+  artifactKey: Guid(35cc2632df2760540bcc67312740008b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef using Guid(35cc2632df2760540bcc67312740008b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd3eb907c51f241c8fca7ae163e2bfad') in 0.007774 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.664849 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/DemoHub
+  artifactKey: Guid(76393d857f3f83e4eac6e8fe98f97c3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/DemoHub using Guid(76393d857f3f83e4eac6e8fe98f97c3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b35f1e1fbd8c9aa6f110d453e07bf291') in 0.004988 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.757493 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids
+  artifactKey: Guid(836b5819c0347f0458f3e374fa3c2230) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids using Guid(836b5819c0347f0458f3e374fa3c2230) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a40e3300d6960e95e0f8a16380cdba2') in 0.009773 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.164309 seconds.
+  path: Assets/Photon/PhotonChat
+  artifactKey: Guid(ea05e6479d592944d955c2a5e1a6d6f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonChat using Guid(ea05e6479d592944d955c2a5e1a6d6f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4de8b4b050bae06245e0f3aaf9835387') in 0.005297 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.878414 seconds.
+  path: Assets/Photon/PhotonChat/Demos
+  artifactKey: Guid(801c62f7d03cb463ba20067deb330234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonChat/Demos using Guid(801c62f7d03cb463ba20067deb330234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '720384e303ca559184be76c66992c5a2') in 0.001933 seconds 
