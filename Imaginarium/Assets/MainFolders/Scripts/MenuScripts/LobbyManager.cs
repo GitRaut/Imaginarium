@@ -13,7 +13,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public TMP_Text roomNameUI;
     public TMP_Text userListUI;
     private string roomName;
-    private List<string> userNames;
 
     public void OnClickReady()
     {
@@ -34,14 +33,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player player)
     {
         base.OnPlayerEnteredRoom(player);
-        userNames.Add(player.UserId);
         UpdateInterface();
     }
 
     public override void OnPlayerLeftRoom(Player player)
     {
         base.OnPlayerEnteredRoom(player);
-        userNames.Remove(player.UserId);
         UpdateInterface();
     }
 
