@@ -10,7 +10,6 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Transform def_parent;
     public bool is_used;
 
-
     private void Start()
     {
         is_used = false;
