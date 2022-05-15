@@ -157,7 +157,7 @@ RectTransform:
   m_Children:
   - {fileID: 1701705047}
   m_Father: {fileID: 516976200}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1801,6 +1801,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2103608655}
+  - {fileID: 1477668473}
   - {fileID: 1228636844}
   - {fileID: 1441994142}
   - {fileID: 25541150}
@@ -3216,7 +3217,7 @@ RectTransform:
   - {fileID: 1496963054}
   - {fileID: 1507094906}
   m_Father: {fileID: 516976200}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -3441,7 +3442,7 @@ RectTransform:
   m_Children:
   - {fileID: 1417260463}
   m_Father: {fileID: 516976200}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3717,12 +3718,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2103608655}
-  m_RootOrder: 0
+  m_Father: {fileID: 516976200}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.50001526}
+  m_AnchoredPosition: {x: 99.99999, y: -81.49997}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1477668474
@@ -5216,6 +5217,7 @@ GameObject:
   - component: {fileID: 2103608655}
   - component: {fileID: 2103608657}
   - component: {fileID: 2103608656}
+  - component: {fileID: 2103608659}
   - component: {fileID: 2103608658}
   m_Layer: 5
   m_Name: SetField
@@ -5235,8 +5237,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1477668473}
+  m_Children: []
   m_Father: {fileID: 516976200}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5299,6 +5300,32 @@ MonoBehaviour:
   cross_button: {fileID: 1477668473}
   ready_button: {fileID: 25541151}
   input_field: {fileID: 1441994143}
+--- !u!114 &2103608659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103608654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &2128450407
 PrefabInstance:
   m_ObjectHideFlags: 0

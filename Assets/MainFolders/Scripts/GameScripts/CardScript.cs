@@ -39,7 +39,7 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(def_parent);
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
+            transform.SetParent(def_parent);
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 }

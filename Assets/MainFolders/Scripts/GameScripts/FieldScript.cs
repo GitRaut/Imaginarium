@@ -16,7 +16,7 @@ public class FieldScript : MonoBehaviour, IDropHandler
     {
         CardScript card = eventData.pointerDrag.GetComponent<CardScript>();
 
-        if (card)
+        if (card && !card.is_used)
         {
             for(int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = true;
@@ -26,13 +26,12 @@ public class FieldScript : MonoBehaviour, IDropHandler
 
             card.def_parent = transform;
             card.is_used = true;
-            card.transform.position = transform.position;
         }
     }
 
     public void OnClickCross()
     {
-        transform.GetChild(1).SetParent(hand);
+        transform.GetChild(0).SetParent(hand);
 
         cross_button.gameObject.SetActive(false);
         input_field.interactable = false;
