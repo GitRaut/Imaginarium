@@ -8,13 +8,14 @@ public class ReadyScript : MonoBehaviour
 {
     public Transform next_screen;
     public TMP_InputField input_field;
+    public GameManagerScript gameManager;
 
     private Button ready_button;
 
     public void OnClick()
     {
         Debug.Log("DONE");
-        GameManagerScript.Instance.asoc = input_field.text;
+        gameManager.asoc = input_field.text;
         // next_screen.gameObject.SetActive(true);
         // transform.gameObject.SetActive(false);
     }

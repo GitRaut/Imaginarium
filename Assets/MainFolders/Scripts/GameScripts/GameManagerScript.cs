@@ -4,19 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 public class GameManagerScript : MonoBehaviourPun, IPunObservable
 {
-    public static GameManagerScript Instance = null;
     public string asoc;
     public List<Sprite> remaining_cards;
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-        }
-
-        Instance = this;
-    }
 
     private void Update()
     {

@@ -272,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   next_screen: {fileID: 0}
   input_field: {fileID: 1441994143}
+  gameManager: {fileID: 1035403417}
 --- !u!224 &49495763 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 720046945761751743, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
