@@ -18,7 +18,7 @@ public class FieldScript : MonoBehaviour, IDropHandler
 
         if (card && !card.is_used)
         {
-            for(int i = 0; i < hand.childCount; i++)
+            for (int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = true;
 
             input_field.interactable = true;
@@ -31,6 +31,7 @@ public class FieldScript : MonoBehaviour, IDropHandler
 
     public void OnClickCross()
     {
+        transform.GetChild(0).GetComponent<CardScript>().def_parent = hand;
         transform.GetChild(0).SetParent(hand);
 
         cross_button.gameObject.SetActive(false);
