@@ -5,6 +5,7 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -17,6 +18,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClickReady()
     {
         Debug.Log("Ready");
+        SceneManager.LoadScene("Game");
     }
 
     public void OnClickExit()
