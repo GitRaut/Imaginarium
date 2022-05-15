@@ -14,8 +14,9 @@ public class ReadyScript : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("DONE");
-        next_screen.gameObject.SetActive(true);
-        transform.gameObject.SetActive(false);
+        GameManagerScript.Instance.asoc = input_field.text;
+        // next_screen.gameObject.SetActive(true);
+        // transform.gameObject.SetActive(false);
     }
 
     private void Start()
