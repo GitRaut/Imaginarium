@@ -476,7 +476,7 @@ RectTransform:
   - {fileID: 664350239}
   - {fileID: 1547700707}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1177,6 +1177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 3683783457243367094, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 67c87f31b16b4624c86f1c56085ddcc4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
 --- !u!1001 &447450569
@@ -1478,6 +1482,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3683783457243367094, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 84e651151d942c94aa59472334b371e8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
 --- !u!1001 &487444775
@@ -1801,8 +1809,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 292, y: 519}
+  m_AnchoredPosition: {x: 0.000012636, y: 0}
+  m_SizeDelta: {x: 300, y: 534}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &516976201
 MonoBehaviour:
@@ -2386,7 +2394,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &873074027 stripped
 RectTransform:
@@ -2557,8 +2565,108 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3683783457243367094, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c666afd69412a4440a84c67dfea7512c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+--- !u!1 &1035403415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035403416}
+  - component: {fileID: 1035403417}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035403416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035403415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1035403417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035403415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bb1938a4a77cb4abe35c5559c4977e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asoc: 
+  remaining_cards:
+  - {fileID: 21300000, guid: faf8b7826012847489906b3a54ee474d, type: 3}
+  - {fileID: 21300000, guid: fd65ebf27af6ef14395b1ed4e9640c83, type: 3}
+  - {fileID: 21300000, guid: 7dd9f57bd8d7f1e42b11b485ddf66a36, type: 3}
+  - {fileID: 21300000, guid: 6ae592aa983a57b498be176d9bf3b706, type: 3}
+  - {fileID: 21300000, guid: 9ad53d4b069626c449cfa96e5a2a446b, type: 3}
+  - {fileID: 21300000, guid: f1b08999b99cf2d40acbca4515d44e50, type: 3}
+  - {fileID: 21300000, guid: 24d03a4c781138c4d80b5f5ed72fe20a, type: 3}
+  - {fileID: 21300000, guid: 4b40c3ffba0187c48ac3db85e9cb1b1a, type: 3}
+  - {fileID: 21300000, guid: d8bd44b2325de7f419e4c89ce5b4db2a, type: 3}
+  - {fileID: 21300000, guid: df8e9cc7455af8b4c90079ff0b5496f7, type: 3}
+  - {fileID: 21300000, guid: 6a8e53afb84799d409f63322ae616b38, type: 3}
+  - {fileID: 21300000, guid: 9594b664c116dd846864f10a924bcceb, type: 3}
+  - {fileID: 21300000, guid: 2af971fa5d7a93344b243b03a840cc04, type: 3}
+  - {fileID: 21300000, guid: 664234da924fc3d41bd899eac99ec1e9, type: 3}
+  - {fileID: 21300000, guid: 7e6b8dceb66302d4fa78867a89bf85a8, type: 3}
+  - {fileID: 21300000, guid: 3a00dcf361bca1a409b441670b70698a, type: 3}
+  - {fileID: 21300000, guid: 2e40197ac466d6a408f7cdefc0f4d8bd, type: 3}
+  - {fileID: 21300000, guid: ac8b03081343f1b4ba1c8bc7260a5def, type: 3}
+  - {fileID: 21300000, guid: 082c73282883c43448592cf512e83823, type: 3}
+  - {fileID: 21300000, guid: 9dbca0462bc8bc44b82b1bcded705f5a, type: 3}
+  - {fileID: 21300000, guid: 2725e9dd99cd7104f837fdc22ac82eba, type: 3}
+  - {fileID: 21300000, guid: 84e651151d942c94aa59472334b371e8, type: 3}
+  - {fileID: 21300000, guid: 7a86dbbd3dedce84398d7f25265c3b29, type: 3}
+  - {fileID: 21300000, guid: a1e7c418565075a4b921f160f31d2f47, type: 3}
+  - {fileID: 21300000, guid: 31a0ae22cd0ed7f4fb4e17ccfba2731a, type: 3}
+  - {fileID: 21300000, guid: 5881749093c970e4d989bb1ac9a210be, type: 3}
+  - {fileID: 21300000, guid: c666afd69412a4440a84c67dfea7512c, type: 3}
+  - {fileID: 21300000, guid: 0470aae9f7f7d8541b467b3dce362740, type: 3}
+  - {fileID: 21300000, guid: 2b028eca0bb8f0841a8f34385028c495, type: 3}
+  - {fileID: 21300000, guid: 1ddeb76e73b1ef94ca8b1ded1f2457ce, type: 3}
+  - {fileID: 21300000, guid: c563de49b38de0840ad500b53bf9f9a2, type: 3}
+  - {fileID: 21300000, guid: 5bf8a3a866348dd4e97c27116826905c, type: 3}
+  - {fileID: 21300000, guid: 27f992a03dee6c04c975e62f303559a6, type: 3}
+  - {fileID: 21300000, guid: 5c8c7c5aaa1a9aa4a9200d54fe78be58, type: 3}
+  - {fileID: 21300000, guid: f255853861e39864bb471bdde47fe5b9, type: 3}
+  - {fileID: 21300000, guid: d828e224edb028940a8c7991e9443945, type: 3}
+  - {fileID: 21300000, guid: bf0b3a565cbdc06449ce38b58d4d9cea, type: 3}
+  - {fileID: 21300000, guid: f904c0c4fcff1ff4d8641a63c192faab, type: 3}
+  - {fileID: 21300000, guid: a50d5ff9a4a4d964798ee59738c55399, type: 3}
+  - {fileID: 21300000, guid: b60150d73a7b0e14f9560a7af722db56, type: 3}
+  - {fileID: 21300000, guid: 5ca21fcac8efbd54fa50627b98981065, type: 3}
+  - {fileID: 21300000, guid: 80d98b05ab5e4c34db369f59ccb13003, type: 3}
+  - {fileID: 21300000, guid: 6845884fd749c74489ec25b343911891, type: 3}
+  - {fileID: 21300000, guid: e63ee695f7141c9468304679a01c95a7, type: 3}
+  - {fileID: 21300000, guid: 07d139d1d3e535a4c992de4bf7ae6704, type: 3}
+  - {fileID: 21300000, guid: d826d6ff0fc4b4e468c4b3f4ca740163, type: 3}
+  - {fileID: 21300000, guid: 80f332e3fe6d54c4a9e81723b85061ba, type: 3}
+  - {fileID: 21300000, guid: 975c539876948f94da7bf709a0574669, type: 3}
+  - {fileID: 21300000, guid: 67c87f31b16b4624c86f1c56085ddcc4, type: 3}
+  - {fileID: 21300000, guid: 665f94b82b977f7458c27b2059be2458, type: 3}
 --- !u!1 &1056831495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2825,6 +2933,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3683783457243367094, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e63ee695f7141c9468304679a01c95a7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
 --- !u!1001 &1157509667
@@ -2922,6 +3034,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3683783457243367094, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f255853861e39864bb471bdde47fe5b9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
 --- !u!224 &1157509668 stripped
@@ -3233,6 +3349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardPrefab (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3683783457243367094, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7a86dbbd3dedce84398d7f25265c3b29, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cf8318bb203b7458786e3cd6a4ba2a, type: 3}
 --- !u!1 &1417260462
@@ -3602,7 +3722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.50001526}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1477668474

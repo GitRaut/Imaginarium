@@ -45,6 +45,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     public void OnClickQuit()
     {
-        Debug.Log("QUIT");
+        Application.Quit();
     }
 }
