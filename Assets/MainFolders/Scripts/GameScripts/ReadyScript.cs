@@ -18,10 +18,18 @@ public class ReadyScript : MonoBehaviour
         Debug.Log("DONE");
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         properties.Add("asoc", input_field.text);
+        
+        if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.MP_CHOSING)
+        {
+            properties.Add("turn_state", TurnStates.P_CHOSING);
+        }
+
+        if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.P_CHOSING)
+        {
+            properties.Add("turn_state", TurnStates.VOTING);
+        }
+
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
-        // gameManager.asoc = input_field.text;
-        // next_screen.gameObject.SetActive(true);
-        // transform.gameObject.SetActive(false);
     }
 
     private void Start()
