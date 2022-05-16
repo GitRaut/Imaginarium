@@ -2,27 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
+
 public class GameManagerScript : MonoBehaviourPun, IPunObservable
 {
     public string asoc;
     public List<Sprite> remaining_cards;
+    public TMP_Text asoc_field;
+    public List<Sprite> selected_cards;
+    private int player_index;
 
-    #region IPunObservable implementation
+    private void Awake()
+    {
+        player_index = 0;
+    }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            // We own this player: send the others our data
             stream.SendNext(asoc);
         }
         else
         {
-            // Network player, receive data
-            this.asoc = (string)stream.ReceiveNext();
-            Debug.Log(asoc);
+            asoc = (string)stream.ReceiveNext();
         }
     }
 
-    #endregion
+    private void Update()
+    {
+        if(asoc_field.text != asoc)
+        {
+            asoc_field.text = asoc;
+        }
+    }
 }

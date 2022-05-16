@@ -25,13 +25,13 @@ public class PFieldScript : MonoBehaviour, IDropHandler
 
             card.def_parent = transform;
             card.is_used = true;
-            card.transform.position = transform.position;
         }
     }
 
     public void OnClickCross()
     {
-        transform.GetChild(1).SetParent(hand);
+        transform.GetChild(0).GetComponent<CardScript>().def_parent = hand;
+        transform.GetChild(0).SetParent(hand);
 
         cross_button.gameObject.SetActive(false);
         ready_button.interactable = false;
