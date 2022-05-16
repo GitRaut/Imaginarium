@@ -21,6 +21,14 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public TMP_Text asoc_field;
     public List<Sprite> selected_cards;
 
+    [Header("Screens")]
+    public Transform mpChooseScreen;
+    public Transform waitingScreen;
+    public Transform pChooseScreen;
+    public Transform voteScreen;
+    public Transform resultScreen;
+    
+
     private void Start()
     {
         this.StartGame();
@@ -32,7 +40,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             this.SetTurn(PhotonNetwork.LocalPlayer);
 
             Hashtable properties = new Hashtable();
-            // properties.Add("remaining_cards", remaining_cards);
+            //properties.Add("remaining_cards", remaining_cards);
             // properties.Add("selected_cards", selected_cards);
             properties.Add("turn_state", TurnStates.MP_CHOSING);
             PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
@@ -70,21 +78,31 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 case TurnStates.MP_CHOSING:
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
-                        Debug.Log("CHOSING_SCREEN");   
-                    }else{
+                        Debug.Log("CHOSING_SCREEN");
+                        mpChooseScreen.gameObject.SetActive(true);
+                    }
+                    else{
                         Debug.Log("WAITING_SCREEN");
+                        mpChooseScreen.gameObject.SetActive(false);
+                        waitingScreen.gameObject.SetActive(true);
                     }
                     break;
                 case TurnStates.P_CHOSING:
                     if ( !(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
-                        Debug.Log("CHOSING_SCREEN");   
-                    }else{
+                        Debug.Log("CHOSING_SCREEN");
+                        waitingScreen.gameObject.SetActive(false);
+                        pChooseScreen.gameObject.SetActive(true);
+                    }
+                    else{
                         Debug.Log("WAITING_SCREEN");
+                        mpChooseScreen.gameObject.SetActive(false);
+                        waitingScreen.gameObject.SetActive(true);
                     }
                     break;
                 case TurnStates.VOTING:
                     Debug.Log("VOTING_SCREEN");
+                    waitingScreen.gameObject.SetActive(false);
                     break;
                 case TurnStates.RESULTS:
                     Debug.Log("RESULT_SCREEN");
