@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 
-public class GameManagerScript : MonoBehaviourPun, IPunObservable
+public class GameManagerScript : MonoBehaviourPunCallbacks
 {
     public string asoc;
     public List<Sprite> remaining_cards;
@@ -17,23 +17,30 @@ public class GameManagerScript : MonoBehaviourPun, IPunObservable
         player_index = 0;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(asoc);
-        }
-        else
-        {
-            asoc = (string)stream.ReceiveNext();
-        }
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
+        asoc = (string)propertiesThatChanged["asoc"];
+        asoc_field.text = asoc;
     }
 
-    private void Update()
-    {
-        if(asoc_field.text != asoc)
-        {
-            asoc_field.text = asoc;
-        }
-    }
+    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    // {
+    //     if (stream.IsWriting)
+    //     {
+    //         stream.SendNext(asoc);
+    //     }
+    //     else
+    //     {
+    //         asoc = (string)stream.ReceiveNext();
+    //     }
+    // }
+
+    // private void Update()
+    // {
+    //     if(asoc_field.text != asoc)
+    //     {
+    //         asoc_field.text = asoc;
+    //     }
+    // }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 public class ReadyScript : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class ReadyScript : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("DONE");
-        gameManager.asoc = input_field.text;
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        properties.Add("asoc", input_field.text);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+        // gameManager.asoc = input_field.text;
         // next_screen.gameObject.SetActive(true);
         // transform.gameObject.SetActive(false);
     }
