@@ -17,10 +17,9 @@ public class ReadyScript : MonoBehaviour
     {
         Debug.Log("DONE");
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add("asoc", input_field.text);
-        
         if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.MP_CHOSING)
         {
+            properties.Add("asoc", input_field.text);
             properties.Add("turn_state", TurnStates.P_CHOSING);
         }
 

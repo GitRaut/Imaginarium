@@ -109,7 +109,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     break;
             }
         }
-        // asoc = (string)propertiesThatChanged["asoc"];
-        // asoc_field.text = asoc;
+        if (propertiesThatChanged.ContainsKey("asoc")){
+            asoc = (string)propertiesThatChanged["asoc"];
+            asoc_field.text = asoc;
+        }
     }
 }
