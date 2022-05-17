@@ -27,7 +27,23 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform pChooseScreen;
     public Transform voteScreen;
     public Transform resultScreen;
-    
+
+    public struct Card
+    {
+        string id;
+        Sprite image;
+
+        public Card(string id)
+        {
+            this.id = id;
+            image = Resources.Load<Sprite>("MainFolders/Textures/Cards/" + id);
+        }
+    }
+
+    private void LoadCards()
+    {
+
+    }
 
     private void Start()
     {
@@ -40,8 +56,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             this.SetTurn(PhotonNetwork.LocalPlayer);
 
             Hashtable properties = new Hashtable();
-            //properties.Add("remaining_cards", remaining_cards);
-            // properties.Add("selected_cards", selected_cards);
+            properties.Add("remaining_cards", remaining_cards);
+            properties.Add("selected_cards", selected_cards);
             properties.Add("turn_state", TurnStates.MP_CHOSING);
             PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
         }
@@ -59,6 +75,11 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             properties.Add("myTurn", turnPlayer);
             listPlayer.SetCustomProperties(properties);
         }
+    }
+
+    public void GiveCards(int col, Player player)
+    {
+
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -103,9 +124,12 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 case TurnStates.VOTING:
                     Debug.Log("VOTING_SCREEN");
                     waitingScreen.gameObject.SetActive(false);
+                    voteScreen.gameObject.SetActive(true);
                     break;
                 case TurnStates.RESULTS:
                     Debug.Log("RESULT_SCREEN");
+                    voteScreen.gameObject.SetActive(false);
+                    resultScreen.gameObject.SetActive(true);
                     break;
             }
         }
