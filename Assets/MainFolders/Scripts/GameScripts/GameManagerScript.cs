@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
@@ -17,9 +18,10 @@ enum TurnStates
 public class GameManagerScript : MonoBehaviourPunCallbacks
 {
     public string asoc;
-    public List<Sprite> remaining_cards;
     public TMP_Text asoc_field;
-    public List<Sprite> selected_cards;
+    public Sprite[] allCards;
+    public int[] remainingCards;
+    public int[] selectedCards;
 
     [Header("Screens")]
     public Transform mpChooseScreen;
@@ -28,38 +30,34 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform voteScreen;
     public Transform resultScreen;
 
-    public struct Card
+    private void Awake()
     {
-        string id;
-        Sprite image;
-
-        public Card(string id)
-        {
-            this.id = id;
-            image = Resources.Load<Sprite>("MainFolders/Textures/Cards/" + id);
-        }
-    }
-
-    private void LoadCards()
-    {
-
-    }
-
-    private void Start()
-    {
+        remainingCards = new int[50];
         this.StartGame();
     }
 
-    private void StartGame(){
+    private void StartGame()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
             this.SetTurn(PhotonNetwork.LocalPlayer);
 
             Hashtable properties = new Hashtable();
-            properties.Add("remaining_cards", remaining_cards);
-            properties.Add("selected_cards", selected_cards);
+            properties.Add("remaining_cards", remainingCards);
+            properties.Add("selected_cards", selectedCards);
             properties.Add("turn_state", TurnStates.MP_CHOSING);
             PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+
+            foreach (Player listPlayer in PhotonNetwork.PlayerList)
+            {
+                int[] cards = new int[6];
+                bool ready = false;
+                Hashtable playerProperties = new Hashtable();
+                playerProperties.Add("myCards", cards);
+                playerProperties.Add("isReady", ready);
+                PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+            }
+            GiveCards(0);
         }
     }
 
@@ -77,9 +75,33 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
     }
 
-    public void GiveCards(int col, Player player)
+    public void GiveCards(int begIndex)
     {
+        foreach (Player listPlayer in PhotonNetwork.PlayerList)
+        {
+            Debug.Log(remainingCards == null);
 
+            int id = 999;
+            int[] cards = (int[])listPlayer.CustomProperties["myCards"];
+            if (cards != null && remainingCards != null)
+            { 
+                for (int i = begIndex; i < cards.Length; i++)
+                {
+                    do
+                    {
+                        id = Random.Range(0, remainingCards.Length - 1);
+                    }
+                    while (remainingCards[id] == 999);
+
+                    cards[i] = remainingCards[id];
+                    remainingCards[id] = 999;
+                }
+
+                Hashtable properties = new Hashtable();
+                properties.Add("myCards", cards);
+                listPlayer.SetCustomProperties(properties);
+            }
+        }
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -87,6 +109,11 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         if (targetPlayer.IsLocal)
         {
             Debug.LogFormat("IS MY TURN {0}", (bool)changedProps["myTurn"]);
+        }
+
+        if (changedProps.ContainsKey("isReady"))
+        {
+
         }
     }
 

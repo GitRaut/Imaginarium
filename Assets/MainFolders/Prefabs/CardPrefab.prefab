@@ -103,4 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   def_parent: {fileID: 0}
+  image: {fileID: 3683783457243367094}
   is_used: 0
+  gameManager: {fileID: 0}

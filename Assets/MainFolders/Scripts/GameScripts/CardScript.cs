@@ -3,19 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Photon.Pun;
 
 public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Vector2 offset;
     private Camera main_camera;
     public Transform def_parent;
+    public Image image;
     public bool is_used;
+    private GameManagerScript gameManager;
 
     private void Start()
     {
         is_used = false;
         main_camera = Camera.main;
         def_parent = transform.parent;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        ShowCardInfo();
+    }
+
+    private void ShowCardInfo()
+    {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        int index = transform.GetSiblingIndex();
+        //Debug.Log(index);
+        int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
+        image.sprite = gameManager.allCards[cards[index]];
     }
 
     public void OnBeginDrag(PointerEventData eventData)
