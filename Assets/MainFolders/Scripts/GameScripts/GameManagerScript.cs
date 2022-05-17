@@ -33,6 +33,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     private void Awake()
     {
         remainingCards = new int[50];
+        for(int i = 0; i < remainingCards.Length; i++)
+        {
+            remainingCards[i] = i;
+        }
         this.StartGame();
     }
 
