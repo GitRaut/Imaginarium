@@ -48,10 +48,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
             foreach (Player listPlayer in PhotonNetwork.PlayerList)
             {
-                int[] cards = new int[6];
                 bool ready = false;
                 Hashtable playerProperties = new Hashtable();
-                playerProperties.Add("myCards", cards);
                 playerProperties.Add("isReady", ready);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
@@ -87,6 +85,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
             int id = 999;
             int[] cards = (int[])listPlayer.CustomProperties["myCards"];
+            if (cards == null) cards = new int[6];
+
             if (cards != null && remainingCards != null)
             { 
                 for (int i = begIndex; i < cards.Length; i++)
