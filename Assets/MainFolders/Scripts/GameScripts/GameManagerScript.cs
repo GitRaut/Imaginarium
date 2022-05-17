@@ -42,12 +42,6 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         {
             this.SetTurn(PhotonNetwork.LocalPlayer);
 
-            Hashtable properties = new Hashtable();
-            properties.Add("remaining_cards", remainingCards);
-            properties.Add("selected_cards", selectedCards);
-            properties.Add("turn_state", TurnStates.MP_CHOSING);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
-
             foreach (Player listPlayer in PhotonNetwork.PlayerList)
             {
                 int[] cards = new int[6];
@@ -58,6 +52,12 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
             GiveCards(0);
+
+            Hashtable properties = new Hashtable();
+            properties.Add("remaining_cards", remainingCards);
+            properties.Add("selected_cards", selectedCards);
+            properties.Add("turn_state", TurnStates.MP_CHOSING);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
         }
     }
 
@@ -108,7 +108,17 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     {
         if (targetPlayer.IsLocal)
         {
-            Debug.LogFormat("IS MY TURN {0}", (bool)changedProps["myTurn"]);
+            if (changedProps.ContainsKey("myCards"))
+            {
+                Transform hand = mpChooseScreen.Find("Hand");
+                foreach (Transform cardTransform in hand)
+                {
+                    CardScript card = cardTransform.GetComponent<CardScript>();
+                    card.ShowCardInfo();
+                    // int[] myCards = (int[])changedProps["myCards"];
+                    // Debug.Log(string.Join(",", myCards));
+                }
+            }
         }
 
         if (changedProps.ContainsKey("isReady"))

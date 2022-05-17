@@ -20,10 +20,9 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         main_camera = Camera.main;
         def_parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-        ShowCardInfo();
     }
 
-    private void ShowCardInfo()
+    public void ShowCardInfo()
     {
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         int index = transform.GetSiblingIndex();
