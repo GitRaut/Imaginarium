@@ -13,6 +13,7 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Image image;
     public bool is_used;
     private GameManagerScript gameManager;
+    public int id;
 
     private void Start()
     {
@@ -26,9 +27,9 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         int index = transform.GetSiblingIndex();
-        //Debug.Log(index);
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
         image.sprite = gameManager.allCards[cards[index]];
+        //id = cards[index];
     }
 
     public void OnBeginDrag(PointerEventData eventData)

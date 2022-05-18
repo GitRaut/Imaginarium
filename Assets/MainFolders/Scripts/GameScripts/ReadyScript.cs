@@ -9,6 +9,7 @@ public class ReadyScript : MonoBehaviour
 {
     public TMP_InputField input_field;
     public GameManagerScript gameManager;
+    //public Transform cardField;
 
     private Button ready_button;
 
@@ -19,6 +20,11 @@ public class ReadyScript : MonoBehaviour
         {
             properties.Add("asoc", input_field.text);
             properties.Add("turn_state", TurnStates.P_CHOSING);
+
+            /*CardScript card = cardField.GetChild(0).GetComponent<CardScript>();
+            int[] selected_cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
+            selected_cards[0] = card.id;
+            properties.Add("selected_cards", selected_cards);*/
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);

@@ -6,6 +6,7 @@ using Photon.Pun;
 public class PButtonsScript : MonoBehaviour
 {
     public GameManagerScript gameManager;
+    //public Transform cardField;
 
     public void OnClickPChoosing()
     {
@@ -16,6 +17,11 @@ public class PButtonsScript : MonoBehaviour
         {
             properties.Add("turn_state", TurnStates.VOTING);
             playerProperties.Add("isReady", true);
+
+            /*CardScript card = cardField.GetChild(0).GetComponent<CardScript>();
+            int[] selected_cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
+            selected_cards[PhotonNetwork.LocalPlayer.ActorNumber] = card.id;
+            properties.Add("selected_cards", selected_cards);*/
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
