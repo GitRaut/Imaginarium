@@ -32,6 +32,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        selectedCards = new int[PhotonNetwork.CountOfPlayers];
         remainingCards = new int[50];
         for(int i = 0; i < remainingCards.Length; i++)
         {
