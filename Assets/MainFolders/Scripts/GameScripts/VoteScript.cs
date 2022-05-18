@@ -10,11 +10,10 @@ public class VoteScript : MonoBehaviour
 
     private void Start()
     {
+        cardsField = GameObject.Find("Cards").transform;
         for(int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
-            Transform card = cardPrefab;
-            card.SetParent(cardsField);
-            Instantiate(card);
+            Instantiate(cardPrefab, parent: cardsField);
         }
     }
 }

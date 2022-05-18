@@ -64,7 +64,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 playerProperties.Add("isReady", ready);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
-            GiveCards(0, 6);
+            foreach (Player listPlayer in PhotonNetwork.PlayerList)
+            {
+                GiveCards(0, 6, listPlayer);
+            }
 
             Hashtable properties = new Hashtable();
             properties.Add("remaining_cards", remainingCards);
@@ -88,33 +91,30 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
     }
 
-    public void GiveCards(int begIndex, int endIndex)
+    public void GiveCards(int begIndex, int endIndex, Player player)
     {
-        foreach (Player listPlayer in PhotonNetwork.PlayerList)
+        int id = 999;
+        int[] cards = (int[])player.CustomProperties["myCards"];
+        if (cards == null) cards = new int[6];
+
+        if (cards != null && remainingCards != null)
         {
-            int id = 999;
-            int[] cards = (int[])listPlayer.CustomProperties["myCards"];
-            if (cards == null) cards = new int[6];
-
-            if (cards != null && remainingCards != null)
-            { 
-                for (int i = begIndex; i < endIndex; i++)
+            for (int i = begIndex; i < endIndex; i++)
+            {
+                do
                 {
-                    do
-                    {
-                        id = Random.Range(0, remainingCards.Length - 1);
-                    }
-                    while (remainingCards[id] == 999);
-
-                    cards[i] = remainingCards[id];
-                    remainingCards[id] = 999;
+                    id = Random.Range(0, remainingCards.Length - 1);
                 }
+                while (remainingCards[id] == 999);
 
-                Hashtable properties = new Hashtable();
-                properties.Add("myCards", cards);
-                listPlayer.SetCustomProperties(properties);
+                cards[i] = remainingCards[id];
+                remainingCards[id] = 999;
             }
         }
+
+        Hashtable properties = new Hashtable();
+        properties.Add("myCards", cards);
+        player.SetCustomProperties(properties);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -191,6 +191,17 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.ContainsKey("asoc")){
             asoc = (string)propertiesThatChanged["asoc"];
             asoc_field.text = asoc;
+        }
+        if (propertiesThatChanged.ContainsKey("selected_cards"))
+        {
+            Debug.Log(999);
+            selectedCards = (int[])propertiesThatChanged["selected_cards"];
+            Transform cardsField = voteScreen.Find("Cards");
+            foreach(Transform cardTransform in cardsField)
+            {
+                VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
+                card.ShowCardInfo();
+            }
         }
     }
 }

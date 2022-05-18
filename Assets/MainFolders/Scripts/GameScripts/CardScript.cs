@@ -22,7 +22,6 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         main_camera = Camera.main;
         def_parent = transform.parent;
         cardIndex = transform.GetSiblingIndex();
-       // gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     public void ShowCardInfo()

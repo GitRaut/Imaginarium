@@ -22,16 +22,14 @@ public class VoteCardScript : MonoBehaviour
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         int index;
         int[] cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
-        for(int i = 0; i < cards.Length; i++)
+        do
         {
-            do
-            {
-                index = Random.Range(0, cards.Length - 1);
-            }
-            while (index == 999);
-            image.sprite = gameManager.allCards[cards[index]];
-            cards[index] = 999;
+            index = Random.Range(0, cards.Length - 1);
         }
-        properties.Add("selected_cards", new int[PhotonNetwork.CountOfPlayers]);
+        while (index == 999);
+        image.sprite = GameManagerScript.Instance.allCards[cards[index]];
+        cards[index] = 999;
+        properties.Add("selected_cards", cards);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 }
