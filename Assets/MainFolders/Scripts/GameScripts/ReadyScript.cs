@@ -26,7 +26,7 @@ public class ReadyScript : MonoBehaviour
             //member card in selected cards
             CardScript card = cardField.GetChild(0).GetComponent<CardScript>();
             int[] selected_cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
-            selected_cards[PhotonNetwork.LocalPlayer.ActorNumber] = card.id;
+            selected_cards[PhotonNetwork.LocalPlayer.ActorNumber - 1] = card.id;
             properties.Add("selected_cards", selected_cards);
             cardField.GetChild(0).GetComponent<CardScript>().def_parent = hand;
             cardField.GetChild(0).SetParent(hand);
@@ -39,6 +39,8 @@ public class ReadyScript : MonoBehaviour
 
             for (int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = false;
+
+            gameManager.GiveCards(card.cardIndex, card.cardIndex + 1);
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);

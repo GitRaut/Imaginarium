@@ -17,6 +17,7 @@ enum TurnStates
 
 public class GameManagerScript : MonoBehaviourPunCallbacks
 {
+    public static GameManagerScript Instance;
     public string asoc;
     public TMP_Text asoc_field;
     public Sprite[] allCards;
@@ -29,6 +30,15 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform pChooseScreen;
     public Transform voteScreen;
     public Transform resultScreen;
+
+    private void Start()
+    {
+        // “еперь, провер€ем существование экземпл€ра
+        if (Instance == null)
+        { // Ёкземпл€р менеджера был найден
+            Instance = this; // «адаем ссылку на экземпл€р объекта
+        }
+    }
 
     private void Awake()
     {
@@ -54,7 +64,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 playerProperties.Add("isReady", ready);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
-            GiveCards(0);
+            GiveCards(0, 6);
 
             Hashtable properties = new Hashtable();
             properties.Add("remaining_cards", remainingCards);
@@ -78,19 +88,17 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
     }
 
-    public void GiveCards(int begIndex)
+    public void GiveCards(int begIndex, int endIndex)
     {
         foreach (Player listPlayer in PhotonNetwork.PlayerList)
         {
-            Debug.Log(remainingCards == null);
-
             int id = 999;
             int[] cards = (int[])listPlayer.CustomProperties["myCards"];
             if (cards == null) cards = new int[6];
 
             if (cards != null && remainingCards != null)
             { 
-                for (int i = begIndex; i < cards.Length; i++)
+                for (int i = begIndex; i < endIndex; i++)
                 {
                     do
                     {
@@ -115,13 +123,18 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         {
             if (changedProps.ContainsKey("myCards"))
             {
-                Transform hand = mpChooseScreen.Find("Hand");
-                foreach (Transform cardTransform in hand)
+                List<Transform> hands = new List<Transform>
                 {
-                    CardScript card = cardTransform.GetComponent<CardScript>();
-                    card.ShowCardInfo();
-                    // int[] myCards = (int[])changedProps["myCards"];
-                    // Debug.Log(string.Join(",", myCards));
+                    mpChooseScreen.Find("Hand"),
+                    waitingScreen.Find("Hand"),
+                    pChooseScreen.Find("Hand")
+                };
+                foreach (Transform hand in hands)
+                {
+                    foreach(Transform cardTransform in hand){
+                        CardScript card = cardTransform.GetComponent<CardScript>();
+                        card.ShowCardInfo();
+                    }
                 }
             }
         }

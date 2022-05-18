@@ -26,7 +26,7 @@ public class PButtonsScript : MonoBehaviour
             //member card in selected cards
             CardScript card = cardField.GetChild(0).GetComponent<CardScript>();
             int[] selected_cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
-            selected_cards[PhotonNetwork.LocalPlayer.ActorNumber] = card.id;
+            selected_cards[PhotonNetwork.LocalPlayer.ActorNumber - 1] = card.id;
             properties.Add("selected_cards", selected_cards);
 
             //clear and update screen after choosing card
