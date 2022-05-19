@@ -15,7 +15,7 @@ public class PFieldScript : MonoBehaviour, IDropHandler
     {
         CardScript card = eventData.pointerDrag.GetComponent<CardScript>();
 
-        if (card)
+        if (card && !card.is_used)
         {
             for (int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = true;
