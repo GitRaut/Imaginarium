@@ -31,6 +31,7 @@ public class PButtonsScript : MonoBehaviour
 
             //clear and update screen after choosing card
             cardField.GetChild(0).GetComponent<CardScript>().def_parent = hand;
+            cardField.GetChild(0).gameObject.SetActive(false);
             cardField.GetChild(0).SetParent(hand);
             crossButton.gameObject.SetActive(false);
             readyButton.interactable = false;

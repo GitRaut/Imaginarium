@@ -33,6 +33,7 @@ public class ReadyScript : MonoBehaviour
 
             //clear and update screen after choosing card
             cardField.GetChild(0).GetComponent<CardScript>().def_parent = hand;
+            cardField.GetChild(0).gameObject.SetActive(false);
             cardField.GetChild(0).SetParent(hand);
             crossButton.gameObject.SetActive(false);
             input_field.interactable = false;
