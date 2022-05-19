@@ -194,6 +194,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                     else{
                         Debug.Log("WAITING_SCREEN");
+                        resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(false);
                         waitingScreen.gameObject.SetActive(true);
                     }
