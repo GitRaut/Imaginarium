@@ -182,6 +182,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     break;
                 case TurnStates.VOTING:
                     Debug.Log("VOTING_SCREEN");
+                    pChooseScreen.gameObject.SetActive(false);
                     waitingScreen.gameObject.SetActive(false);
                     voteScreen.gameObject.SetActive(true);
                     Transform voteButton = voteScreen.Find("Button");
