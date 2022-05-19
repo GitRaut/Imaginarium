@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -17,7 +18,35 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnClickReady()
     {
-        SceneManager.LoadScene("Game");
+        if (PhotonNetwork.IsMasterClient)
+        {
+           if (AllReady())
+           {
+               SceneManager.LoadScene("Game");
+           } 
+        }else{
+            if (!PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("isLobbyReady") || !(bool)PhotonNetwork.LocalPlayer.CustomProperties["isLobbyReady"])
+            {
+                Hashtable properties = new Hashtable();
+                properties["isLobbyReady"] = true;
+                PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+            }
+        }
+    }
+
+    public bool AllReady(){
+        bool allReady = true;
+        foreach (Player player in PhotonNetwork.PlayerList){
+            if (player != PhotonNetwork.MasterClient)
+            {
+                if (!player.CustomProperties.ContainsKey("isLobbyReady") || !(bool)player.CustomProperties["isLobbyReady"])
+                {
+                    allReady = false;
+                }
+            }
+        }
+
+        return allReady;
     }
 
     public void OnClickExit()
@@ -51,6 +80,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         UpdateInterface();
     }
 
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if (changedProps.ContainsKey("isLobbyReady"))
+        {
+            UpdateInterface();
+        }
+    }
+
+
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
@@ -61,9 +99,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void UpdateInterface() {
         string playerList = "";
  
-        foreach (var player in PhotonNetwork.PlayerList)
+        foreach (Player player in PhotonNetwork.PlayerList)
         {
-            playerList += " - " + player.NickName + "\n";
+            playerList += " - " + player.NickName;
+            if (player.CustomProperties.ContainsKey("isLobbyReady") && (bool)player.CustomProperties["isLobbyReady"])
+            {
+                playerList += " ✓ ";
+            }
+            playerList += "\n\n";
         }
 
         userListUI.text = playerList;
