@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class VoteScript : MonoBehaviour
@@ -13,7 +14,7 @@ public class VoteScript : MonoBehaviour
         cardsField = GameObject.Find("Cards").transform;
         for(int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
-            Instantiate(cardPrefab, parent: cardsField);
+            Transform card = Instantiate(cardPrefab, parent: cardsField);
         }
     }
 }

@@ -155,6 +155,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         Debug.Log("CHOSING_SCREEN");
+                        resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(true);
                     }
                     else{
@@ -180,6 +181,15 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     Debug.Log("VOTING_SCREEN");
                     waitingScreen.gameObject.SetActive(false);
                     voteScreen.gameObject.SetActive(true);
+                    Transform voteButton = voteScreen.Find("Button");
+                    if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
+                    {
+                        voteButton.gameObject.GetComponent<Button>().interactable = false;
+                    }
+                    else
+                    {
+                        voteButton.gameObject.GetComponent<Button>().interactable = true;
+                    }
                     break;
                 case TurnStates.RESULTS:
                     Debug.Log("RESULT_SCREEN");
@@ -194,7 +204,6 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
         if (propertiesThatChanged.ContainsKey("selected_cards"))
         {
-            Debug.Log(999);
             selectedCards = (int[])propertiesThatChanged["selected_cards"];
             Transform cardsField = voteScreen.Find("Cards");
             foreach(Transform cardTransform in cardsField)
