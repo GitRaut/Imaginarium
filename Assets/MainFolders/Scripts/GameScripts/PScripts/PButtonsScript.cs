@@ -38,7 +38,14 @@ public class PButtonsScript : MonoBehaviour
                 hand.GetChild(i).GetComponent<CardScript>().is_used = false;
 
             int[] myCards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
-            myCards[card.cardIndex] = -1;
+            for (int i = 0; i < myCards.Length; i++)
+            {
+                if (myCards[i] == card.id)
+                {
+                    myCards[i] = -1;
+                    break;
+                }
+            }
             playerProperties.Add("myCards", myCards);
 
             // GameManagerScript.Instance.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);

@@ -14,24 +14,24 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public bool is_used;
     //private GameManagerScript gameManager;
     public int id;
-    public int cardIndex;
 
     private void Start()
     {
         is_used = false;
         main_camera = Camera.main;
         def_parent = transform.parent;
-        cardIndex = transform.GetSiblingIndex();
     }
 
     public void ShowCardInfo()
     {
+        int index = transform.GetSiblingIndex();
+        Debug.LogFormat("INDEX {0}", index);
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
-        if (cards[cardIndex] != -1)
+        if (cards[index] != -1)
         {
             gameObject.SetActive(true);
-            image.sprite = GameManagerScript.Instance.allCards[cards[cardIndex]];
-            id = cards[cardIndex];
+            image.sprite = GameManagerScript.Instance.allCards[cards[index]];
+            id = cards[index];
         }else{
             gameObject.SetActive(false);
         }
