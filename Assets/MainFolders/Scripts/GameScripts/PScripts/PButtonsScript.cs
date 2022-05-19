@@ -41,8 +41,8 @@ public class PButtonsScript : MonoBehaviour
             gameManager.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
         }
 
-        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 
     public void OnClickResult()

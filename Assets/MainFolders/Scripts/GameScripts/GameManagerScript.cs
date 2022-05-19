@@ -33,16 +33,16 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        // Теперь, проверяем существование экземпляра
+        // пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (Instance == null)
-        { // Экземпляр менеджера был найден
-            Instance = this; // Задаем ссылку на экземпляр объекта
+        { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            Instance = this; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 
     private void Awake()
     {
-        selectedCards = new int[PhotonNetwork.CountOfPlayers];
+        selectedCards = new int[PhotonNetwork.CurrentRoom.PlayerCount];
         remainingCards = new int[50];
         for(int i = 0; i < remainingCards.Length; i++)
         {
@@ -208,9 +208,12 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.ContainsKey("selected_cards"))
         {
             selectedCards = (int[])propertiesThatChanged["selected_cards"];
+            Debug.Log(string.Join(",", selectedCards));
             Transform cardsField = voteScreen.Find("Cards");
+            Debug.Log(cardsField);
             foreach(Transform cardTransform in cardsField)
             {
+                Debug.Log(cardTransform);
                 VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
                 card.ShowCardInfo();
             }

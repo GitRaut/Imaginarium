@@ -14,7 +14,7 @@ public class VoteScript : MonoBehaviour
     private void Start()
     {
         cardsField = GameObject.Find("Cards").transform;
-        for(int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             Transform card = Instantiate(cardPrefab, parent: cardsField);
             card.GetComponent<VoteCardScript>().voteTransfrom = this.transform.GetComponent<VoteScript>();

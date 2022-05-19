@@ -26,6 +26,9 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["selected_cards"];
         image.sprite = GameManagerScript.Instance.allCards[cards[index]];
         id = cards[index];
+        Debug.Log(string.Join(",", cards));
+        Debug.Log(index);
+        Debug.Log(cards[index]);
         /*do
         {
             index = Random.Range(0, cards.Length - 1);
