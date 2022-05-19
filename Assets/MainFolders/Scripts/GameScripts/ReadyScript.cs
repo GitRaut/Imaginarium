@@ -42,7 +42,10 @@ public class ReadyScript : MonoBehaviour
             for (int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = false;
 
-            gameManager.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
+            int[] myCards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
+            myCards[card.cardIndex] = -1;
+            playerProperties.Add("myCards", myCards);
+            // gameManager.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);

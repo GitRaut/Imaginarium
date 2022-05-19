@@ -17,12 +17,14 @@ enum TurnStates
 
 public class GameManagerScript : MonoBehaviourPunCallbacks
 {
+    public int TOTAL_CARDS_AMOUNT = 6;
     public static GameManagerScript Instance;
     public string asoc;
     public TMP_Text asoc_field;
     public Sprite[] allCards;
-    public int[] remainingCards;
-    public int[] selectedCards;
+    public List<int> remainingCards;
+    // public List< remainingCards;
+    // public int[] remainingCards;
 
     [Header("Screens")]
     public Transform mpChooseScreen;
@@ -45,11 +47,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        selectedCards = new int[PhotonNetwork.CurrentRoom.PlayerCount];
-        remainingCards = new int[50];
-        for(int i = 0; i < remainingCards.Length; i++)
+        for(int i = 0; i < allCards.Length; i++)
         {
-            remainingCards[i] = i;
+            remainingCards.Add(i);
         }
         this.StartGame();
     }
@@ -66,18 +66,19 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 Hashtable playerProperties = new Hashtable();
                 playerProperties.Add("isReady", ready);
                 playerProperties.Add("score", 0);
-                // playerProperties.Add("voteCount", 0);
                 playerProperties.Add("selectedCard", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
-            foreach (Player listPlayer in PhotonNetwork.PlayerList)
-            {
-                GiveCards(0, 6, listPlayer);
-            }
+
+            GiveCardsNew();
+            // foreach (Player listPlayer in PhotonNetwork.PlayerList)
+            // {
+            //     // GiveCards(0, 6, listPlayer);
+            //     GiveCardsNew(0, 6, listPlayer);
+            // }
 
             Hashtable properties = new Hashtable();
-            properties.Add("remaining_cards", remainingCards);
-            properties.Add("selected_cards", selectedCards);
+            properties.Add("selected_cards", new int[PhotonNetwork.CurrentRoom.PlayerCount]);
             properties.Add("turn_state", TurnStates.MP_CHOSING);
             PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
 
@@ -104,30 +105,87 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
     }
 
-    public void GiveCards(int begIndex, int endIndex, Player player)
-    {
-        int id = 999;
-        int[] cards = (int[])player.CustomProperties["myCards"];
-        if (cards == null) cards = new int[6];
+    // public void GiveCards(int begIndex, int endIndex, Player player)
+    // {
+    //     int id = 999;
+    //     int[] cards = (int[])player.CustomProperties["myCards"];
+    //     if (cards == null) cards = new int[TOTAL_CARDS_AMOUNT];
 
-        if (cards != null && remainingCards != null)
+    //     if (cards != null && remainingCards != null)
+    //     {
+    //         for (int i = begIndex; i < endIndex; i++)
+    //         {
+    //             do
+    //             {
+    //                 id = Random.Range(0, remainingCards.Length - 1);
+    //             }
+    //             while (remainingCards[id] == 999);
+
+    //             cards[i] = remainingCards[id];
+    //             remainingCards[id] = 999;
+    //         }
+    //     }
+
+    //     Hashtable properties = new Hashtable();
+    //     properties.Add("myCards", cards);
+    //     player.SetCustomProperties(properties);
+    // }
+
+    public void GiveCardsNew(){
+        bool isGived = true;
+
+        Hashtable data = new Hashtable();
+        
+        while (remainingCards.Count > 0 && isGived)
         {
-            for (int i = begIndex; i < endIndex; i++)
+            isGived = false;
+            foreach (Player player in PhotonNetwork.PlayerList)
             {
-                do
+                int[] cards = null;
+                if (!data.ContainsKey(player.ActorNumber.ToString()))
                 {
-                    id = Random.Range(0, remainingCards.Length - 1);
+                    cards = (int[])player.CustomProperties["myCards"];
+                    if (cards == null) {
+                        cards = new int[TOTAL_CARDS_AMOUNT];
+                        for (int i = 0; i < cards.Length; i++)
+                        {
+                            cards[i] = -1;
+                        }
+                    }
+                    data[player.ActorNumber.ToString()] = cards;
+                }else{
+                    cards = (int[])data[player.ActorNumber.ToString()];
                 }
-                while (remainingCards[id] == 999);
 
-                cards[i] = remainingCards[id];
-                remainingCards[id] = 999;
+                for (int i = 0; i < cards.Length; i++)
+                {
+                    int cardIndex = cards[i];
+                    if (cardIndex == -1)
+                    {
+                        if (remainingCards.Count > 0)
+                        {
+                            int index = Random.Range(0, remainingCards.Count - 1);
+                            cards[i] = remainingCards[index];
+                            remainingCards.RemoveAt(index);
+                            isGived = true;
+
+                            data[player.ActorNumber.ToString()] = cards;
+                        }
+                        break;
+                    }
+                }
             }
         }
 
-        Hashtable properties = new Hashtable();
-        properties.Add("myCards", cards);
-        player.SetCustomProperties(properties);
+        foreach (Player player in PhotonNetwork.PlayerList){
+            if (data.ContainsKey(player.ActorNumber.ToString()))
+            {
+                Hashtable userProperties = new Hashtable();
+                userProperties.Add("myCards", (int[])data[player.ActorNumber.ToString()]);
+                player.SetCustomProperties(userProperties);
+
+            }
+        }
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -193,12 +251,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     if (PhotonNetwork.IsMasterClient) clearTurnData();
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
-                        Debug.Log("CHOSING_SCREEN");
                         resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(true);
                     }
                     else{
-                        Debug.Log("WAITING_SCREEN");
                         resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(false);
                         waitingScreen.gameObject.SetActive(true);
@@ -207,18 +263,15 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 case TurnStates.P_CHOSING:
                     if ( !(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
-                        Debug.Log("CHOSING_SCREEN");
                         waitingScreen.gameObject.SetActive(false);
                         pChooseScreen.gameObject.SetActive(true);
                     }
                     else{
-                        Debug.Log("WAITING_SCREEN");
                         mpChooseScreen.gameObject.SetActive(false);
                         waitingScreen.gameObject.SetActive(true);
                     }
                     break;
                 case TurnStates.VOTING:
-                    Debug.Log("VOTING_SCREEN");
                     pChooseScreen.gameObject.SetActive(false);
                     waitingScreen.gameObject.SetActive(false);
                     voteScreen.gameObject.SetActive(true);
@@ -233,8 +286,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                     break;
                 case TurnStates.RESULTS:
-                    Debug.Log("RESULT_SCREEN");
-                    if (PhotonNetwork.IsMasterClient) CalculateResults();
+                    if (PhotonNetwork.IsMasterClient) {
+                        CalculateResults();
+                        GiveCardsNew();
+                    }
                     voteScreen.gameObject.SetActive(false);
                     resultScreen.gameObject.SetActive(true);
                     break;
@@ -246,12 +301,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
         if (propertiesThatChanged.ContainsKey("selected_cards"))
         {
-            selectedCards = (int[])propertiesThatChanged["selected_cards"];
-
             Transform cardsField = voteScreen.Find("Cards");
             foreach(Transform cardTransform in cardsField)
             {
-                Debug.Log("SHOW CARD INFO");
                 VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
                 card.ShowCardInfo();
             }

@@ -17,7 +17,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnClickReady()
     {
-        Debug.Log("Ready");
         SceneManager.LoadScene("Game");
     }
 

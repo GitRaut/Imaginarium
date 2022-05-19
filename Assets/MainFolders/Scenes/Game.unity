@@ -1041,7 +1041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbc8c616c8464a4bba1e2f9220156a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1035403417}
   cardField: {fileID: 676346456}
   hand: {fileID: 1408677978}
   crossButton: {fileID: 1959188364}
@@ -2139,6 +2138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bb1938a4a77cb4abe35c5559c4977e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TOTAL_CARDS_AMOUNT: 6
   asoc: 
   asoc_field: {fileID: 1864216621}
   allCards:
@@ -2193,7 +2193,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 67c87f31b16b4624c86f1c56085ddcc4, type: 3}
   - {fileID: 21300000, guid: 665f94b82b977f7458c27b2059be2458, type: 3}
   remainingCards: 
-  selectedCards: 
   mpChooseScreen: {fileID: 516976200}
   waitingScreen: {fileID: 493234861}
   pChooseScreen: {fileID: 664350239}

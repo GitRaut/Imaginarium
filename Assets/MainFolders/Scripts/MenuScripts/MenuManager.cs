@@ -16,7 +16,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
         
         if (roomName.Length > 0 && userName.Length > 0)
         {
-            Debug.Log("JoinRoom");
             PhotonNetwork.NickName = userName;
             PhotonNetwork.JoinRoom(roomName);
         }
@@ -29,7 +28,6 @@ public class MenuManager : MonoBehaviourPunCallbacks
         
         if (roomName.Length > 0 && userName.Length > 0)
         {
-            Debug.Log("CREATE");
             PhotonNetwork.NickName = userName;
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 4;

@@ -26,11 +26,16 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void ShowCardInfo()
     {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         int index = transform.GetSiblingIndex();
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
-        image.sprite = GameManagerScript.Instance.allCards[cards[index]];
-        id = cards[index];
+        if (cards[index] != -1)
+        {
+            gameObject.SetActive(true);
+            image.sprite = GameManagerScript.Instance.allCards[cards[index]];
+            id = cards[index];
+        }else{
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
