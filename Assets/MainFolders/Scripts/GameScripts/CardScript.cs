@@ -12,15 +12,16 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Transform def_parent;
     public Image image;
     public bool is_used;
-    private GameManagerScript gameManager;
+    //private GameManagerScript gameManager;
     public int id;
+    public int cardIndex;
 
     private void Start()
     {
         is_used = false;
         main_camera = Camera.main;
         def_parent = transform.parent;
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        cardIndex = transform.GetSiblingIndex();
     }
 
     public void ShowCardInfo()
@@ -28,8 +29,8 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         int index = transform.GetSiblingIndex();
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
-        image.sprite = gameManager.allCards[cards[index]];
-        //id = cards[index];
+        image.sprite = GameManagerScript.Instance.allCards[cards[index]];
+        id = cards[index];
     }
 
     public void OnBeginDrag(PointerEventData eventData)

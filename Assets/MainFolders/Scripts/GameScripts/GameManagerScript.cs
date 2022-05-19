@@ -17,6 +17,7 @@ enum TurnStates
 
 public class GameManagerScript : MonoBehaviourPunCallbacks
 {
+    public static GameManagerScript Instance;
     public string asoc;
     public TMP_Text asoc_field;
     public Sprite[] allCards;
@@ -30,8 +31,18 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform voteScreen;
     public Transform resultScreen;
 
+    private void Start()
+    {
+        // “еперь, провер€ем существование экземпл€ра
+        if (Instance == null)
+        { // Ёкземпл€р менеджера был найден
+            Instance = this; // «адаем ссылку на экземпл€р объекта
+        }
+    }
+
     private void Awake()
     {
+        selectedCards = new int[PhotonNetwork.CountOfPlayers];
         remainingCards = new int[50];
         for(int i = 0; i < remainingCards.Length; i++)
         {
@@ -51,9 +62,15 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 bool ready = false;
                 Hashtable playerProperties = new Hashtable();
                 playerProperties.Add("isReady", ready);
+                playerProperties.Add("points", 0);
+                playerProperties.Add("voteCount", 0);
+                playerProperties.Add("selectedCard", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
-            GiveCards(0);
+            foreach (Player listPlayer in PhotonNetwork.PlayerList)
+            {
+                GiveCards(0, 6, listPlayer);
+            }
 
             Hashtable properties = new Hashtable();
             properties.Add("remaining_cards", remainingCards);
@@ -77,35 +94,30 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         }
     }
 
-    public void GiveCards(int begIndex)
+    public void GiveCards(int begIndex, int endIndex, Player player)
     {
-        foreach (Player listPlayer in PhotonNetwork.PlayerList)
+        int id = 999;
+        int[] cards = (int[])player.CustomProperties["myCards"];
+        if (cards == null) cards = new int[6];
+
+        if (cards != null && remainingCards != null)
         {
-            Debug.Log(remainingCards == null);
-
-            int id = 999;
-            int[] cards = (int[])listPlayer.CustomProperties["myCards"];
-            if (cards == null) cards = new int[6];
-
-            if (cards != null && remainingCards != null)
-            { 
-                for (int i = begIndex; i < cards.Length; i++)
+            for (int i = begIndex; i < endIndex; i++)
+            {
+                do
                 {
-                    do
-                    {
-                        id = Random.Range(0, remainingCards.Length - 1);
-                    }
-                    while (remainingCards[id] == 999);
-
-                    cards[i] = remainingCards[id];
-                    remainingCards[id] = 999;
+                    id = Random.Range(0, remainingCards.Length - 1);
                 }
+                while (remainingCards[id] == 999);
 
-                Hashtable properties = new Hashtable();
-                properties.Add("myCards", cards);
-                listPlayer.SetCustomProperties(properties);
+                cards[i] = remainingCards[id];
+                remainingCards[id] = 999;
             }
         }
+
+        Hashtable properties = new Hashtable();
+        properties.Add("myCards", cards);
+        player.SetCustomProperties(properties);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -114,13 +126,18 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         {
             if (changedProps.ContainsKey("myCards"))
             {
-                Transform hand = mpChooseScreen.Find("Hand");
-                foreach (Transform cardTransform in hand)
+                List<Transform> hands = new List<Transform>
                 {
-                    CardScript card = cardTransform.GetComponent<CardScript>();
-                    card.ShowCardInfo();
-                    // int[] myCards = (int[])changedProps["myCards"];
-                    // Debug.Log(string.Join(",", myCards));
+                    mpChooseScreen.Find("Hand"),
+                    waitingScreen.Find("Hand"),
+                    pChooseScreen.Find("Hand")
+                };
+                foreach (Transform hand in hands)
+                {
+                    foreach(Transform cardTransform in hand){
+                        CardScript card = cardTransform.GetComponent<CardScript>();
+                        card.ShowCardInfo();
+                    }
                 }
             }
         }
@@ -141,6 +158,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         Debug.Log("CHOSING_SCREEN");
+                        resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(true);
                     }
                     else{
@@ -166,6 +184,15 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     Debug.Log("VOTING_SCREEN");
                     waitingScreen.gameObject.SetActive(false);
                     voteScreen.gameObject.SetActive(true);
+                    Transform voteButton = voteScreen.Find("Button");
+                    if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
+                    {
+                        voteButton.gameObject.GetComponent<Button>().interactable = false;
+                    }
+                    else
+                    {
+                        voteButton.gameObject.GetComponent<Button>().interactable = true;
+                    }
                     break;
                 case TurnStates.RESULTS:
                     Debug.Log("RESULT_SCREEN");
@@ -177,6 +204,16 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.ContainsKey("asoc")){
             asoc = (string)propertiesThatChanged["asoc"];
             asoc_field.text = asoc;
+        }
+        if (propertiesThatChanged.ContainsKey("selected_cards"))
+        {
+            selectedCards = (int[])propertiesThatChanged["selected_cards"];
+            Transform cardsField = voteScreen.Find("Cards");
+            foreach(Transform cardTransform in cardsField)
+            {
+                VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
+                card.ShowCardInfo();
+            }
         }
     }
 }
