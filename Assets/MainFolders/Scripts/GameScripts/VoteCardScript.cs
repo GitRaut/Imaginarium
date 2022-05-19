@@ -12,29 +12,23 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
     public Transform cardsField;
     public VoteScript voteTransfrom;
     private GameManagerScript gameManager;
+    private int cardIndex;
     public int id;
 
     public void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         cardsField = GameObject.Find("Cards").transform;
+        cardIndex = transform.GetSiblingIndex();
     }
 
     public void ShowCardInfo()
     {
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        int index = transform.GetSiblingIndex();
         int[] cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
                 
-        image.sprite = GameManagerScript.Instance.allCards[cards[index]];
-        id = cards[index];
-
-        /*do
-        {
-            index = Random.Range(0, cards.Length - 1);
-        }
-        while (cards[index] == 999);*/
-        //cards[index] = 999;
+        image.sprite = GameManagerScript.Instance.allCards[cards[cardIndex]];
+        id = cards[cardIndex];
     }
 
     public void OnPointerClick(PointerEventData eventData)

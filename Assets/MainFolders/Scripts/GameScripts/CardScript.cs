@@ -26,13 +26,12 @@ public class CardScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void ShowCardInfo()
     {
-        int index = transform.GetSiblingIndex();
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
-        if (cards[index] != -1)
+        if (cards[cardIndex] != -1)
         {
             gameObject.SetActive(true);
-            image.sprite = GameManagerScript.Instance.allCards[cards[index]];
-            id = cards[index];
+            image.sprite = GameManagerScript.Instance.allCards[cards[cardIndex]];
+            id = cards[cardIndex];
         }else{
             gameObject.SetActive(false);
         }

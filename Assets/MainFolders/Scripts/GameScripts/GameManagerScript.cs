@@ -166,7 +166,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                         {
                             int index = Random.Range(0, remainingCards.Count - 1);
                             cards[i] = remainingCards[index];
-                            remainingCards.RemoveAt(index);
+                            remainingCards.Remove(remainingCards[index]);
                             isGived = true;
 
                             data[player.ActorNumber.ToString()] = cards;
@@ -186,6 +186,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
             }
         }
+
+        Debug.Log(string.Join(",", remainingCards));
+        Debug.Log(remainingCards.Count);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
