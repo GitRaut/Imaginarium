@@ -218,6 +218,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.ContainsKey("selected_cards"))
         {
             selectedCards = (int[])propertiesThatChanged["selected_cards"];
+
             Transform cardsField = voteScreen.Find("Cards");
             foreach(Transform cardTransform in cardsField)
             {

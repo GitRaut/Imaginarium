@@ -23,12 +23,8 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
     {
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         int index = transform.GetSiblingIndex();
-        int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["selected_cards"];
-        
-        Debug.Log(string.Join(",", cards));
-        Debug.Log(index);
-        Debug.Log(cards[index]);
-        
+        int[] cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
+                
         image.sprite = GameManagerScript.Instance.allCards[cards[index]];
         id = cards[index];
         /*do
