@@ -40,10 +40,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        // ������, ��������� ������������� ����������
         if (Instance == null)
-        { // ��������� ��������� ��� ������
-            Instance = this; // ������ ������ �� ��������� �������
+        {
+            Instance = this;
         }
     }
 

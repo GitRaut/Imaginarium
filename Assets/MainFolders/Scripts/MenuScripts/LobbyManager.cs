@@ -20,9 +20,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-           if (AllReady())
+           if (AllReady() || PhotonNetwork.CurrentRoom.PlayerCount == 1)
            {
-               SceneManager.LoadScene("Game");
+               Hashtable properties = new Hashtable();
+               properties["GameStarted"] = true;
+               PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
            } 
         }else{
             if (!PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("isLobbyReady") || !(bool)PhotonNetwork.LocalPlayer.CustomProperties["isLobbyReady"])
@@ -88,6 +90,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        if (propertiesThatChanged.ContainsKey("GameStarted") && (bool)propertiesThatChanged["GameStarted"])
+        {
+            SceneManager.LoadScene("Game");
+        }
+    }
+
 
     public override void OnLeftRoom()
     {
@@ -104,7 +114,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             playerList += " - " + player.NickName;
             if (player.CustomProperties.ContainsKey("isLobbyReady") && (bool)player.CustomProperties["isLobbyReady"])
             {
-                playerList += " ✓ ";
+                playerList += " (Готов)";
             }
             playerList += "\n\n";
         }
