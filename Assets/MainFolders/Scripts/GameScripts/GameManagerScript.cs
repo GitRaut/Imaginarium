@@ -31,6 +31,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform voteScreen;
     public Transform resultScreen;
 
+    public Transform cardPrefab;
+
     private void Start()
     {
         // ������, ��������� ������������� ����������
@@ -77,6 +79,13 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             properties.Add("selected_cards", selectedCards);
             properties.Add("turn_state", TurnStates.MP_CHOSING);
             PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+
+        }
+        Transform cardsField = voteScreen.transform.Find("Cards").transform;
+        for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            Transform card = Instantiate(cardPrefab, parent: cardsField);
+            card.GetComponent<VoteCardScript>().voteTransfrom = voteScreen.transform.GetComponent<VoteScript>();
         }
     }
 
@@ -208,12 +217,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.ContainsKey("selected_cards"))
         {
             selectedCards = (int[])propertiesThatChanged["selected_cards"];
-            Debug.Log(string.Join(",", selectedCards));
             Transform cardsField = voteScreen.Find("Cards");
-            Debug.Log(cardsField);
             foreach(Transform cardTransform in cardsField)
             {
-                Debug.Log(cardTransform);
+                Debug.Log("SHOW CARD INFO");
                 VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
                 card.ShowCardInfo();
             }

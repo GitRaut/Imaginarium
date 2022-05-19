@@ -7,19 +7,7 @@ using Photon.Realtime;
 
 public class VoteScript : MonoBehaviour
 {
-    public Transform cardsField;
-    public Transform cardPrefab;
     public Transform cardTransform;
-
-    private void Start()
-    {
-        cardsField = GameObject.Find("Cards").transform;
-        for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            Transform card = Instantiate(cardPrefab, parent: cardsField);
-            card.GetComponent<VoteCardScript>().voteTransfrom = this.transform.GetComponent<VoteScript>();
-        }
-    }
 
     public void OnClickVote()
     {
