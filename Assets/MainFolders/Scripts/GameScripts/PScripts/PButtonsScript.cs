@@ -7,7 +7,6 @@ using TMPro;
 
 public class PButtonsScript : MonoBehaviour
 {
-    public GameManagerScript gameManager;
     public Transform cardField;
     public Transform hand;
     public Transform crossButton;
@@ -38,7 +37,7 @@ public class PButtonsScript : MonoBehaviour
             for (int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = false;
 
-            gameManager.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
+            GameManagerScript.Instance.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
         }
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
@@ -51,11 +50,13 @@ public class PButtonsScript : MonoBehaviour
 
         if ((TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.RESULTS)
         {
-            if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
+            // if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
+            if (PhotonNetwork.IsMasterClient)
             {
-                gameManager.SetTurn(PhotonNetwork.LocalPlayer.GetNext());
+                // gameManager.SetTurn(PhotonNetwork.LocalPlayer.GetNext());
+                GameManagerScript.Instance.SetTurn(GameManagerScript.Instance.mainPlayer.GetNext());
+                properties.Add("turn_state", TurnStates.MP_CHOSING);
             }
-            properties.Add("turn_state", TurnStates.MP_CHOSING);
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);

@@ -32,6 +32,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform resultScreen;
 
     public Transform cardPrefab;
+    public Player mainPlayer;
 
     private void Start()
     {
@@ -155,6 +156,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
         {
             UpdateResultsScreen();
         }
+
+        if (changedProps.ContainsKey("myTurn") && (bool)changedProps["myTurn"]){
+            mainPlayer = targetPlayer;
+        }
     }
 
     private void UpdateResultsScreen(){
@@ -185,10 +190,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             switch ((TurnStates)propertiesThatChanged["turn_state"])
             {
                 case TurnStates.MP_CHOSING:
+                    if (PhotonNetwork.IsMasterClient) clearTurnData();
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         Debug.Log("CHOSING_SCREEN");
-                        clearTurnData();
                         resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(true);
                     }
@@ -229,7 +234,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     break;
                 case TurnStates.RESULTS:
                     Debug.Log("RESULT_SCREEN");
-                    CalculateResults();
+                    if (PhotonNetwork.IsMasterClient) CalculateResults();
                     voteScreen.gameObject.SetActive(false);
                     resultScreen.gameObject.SetActive(true);
                     break;
@@ -252,23 +257,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             }
         }
     }
-
-    private Player MainPlayer(){
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            if (player.CustomProperties.ContainsKey("myTurn") && (bool)player.CustomProperties["myTurn"])
-            {
-                return player;
-            }
-        }
-        return null;
-    }
-
     private void CalculateResults(){
-        Hashtable data = new Hashtable();
         bool allVotes = true;
         bool hasVotes = false;
-        Player mainPlayer = MainPlayer(); 
 
         Hashtable mainPlayerProperties = mainPlayer.CustomProperties;
         foreach (Player p in PhotonNetwork.PlayerList)
@@ -360,22 +351,6 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 }
             }
         }
-
-        // foreach (Player player in PhotonNetwork.PlayerList)
-        // {
-        //     int totalVotes = 0;
-        //     Hashtable playerProperties = player.CustomProperties;
-
-        //     foreach (Player p in PhotonNetwork.PlayerList)
-        //     {
-        //         if (playerProperties.ContainsKey("vote_" + p.ActorNumber.ToString()))
-        //         {
-        //             totalVotes += 1;
-        //         }
-        //     }
-
-        //     data[player.ActorNumber.ToString()] = totalVotes;
-        // }
     }
 
     private void clearTurnData(){
