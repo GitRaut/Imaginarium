@@ -62,11 +62,11 @@ public class PButtonsScript : MonoBehaviour
 
         if ((TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.RESULTS)
         {
-            properties.Add("turn_state", TurnStates.MP_CHOSING);
             if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
             {
                 gameManager.SetTurn(PhotonNetwork.LocalPlayer.GetNext());
             }
+            properties.Add("turn_state", TurnStates.MP_CHOSING);
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);

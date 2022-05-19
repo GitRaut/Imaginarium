@@ -10,6 +10,7 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
     public Image image;
     public Transform cardsField;
     private GameManagerScript gameManager;
+    public int id;
 
     public void Start()
     {
@@ -23,6 +24,7 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
         int index = transform.GetSiblingIndex();
         int[] cards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["selected_cards"];
         image.sprite = GameManagerScript.Instance.allCards[cards[index]];
+        id = cards[index];
         /*do
         {
             index = Random.Range(0, cards.Length - 1);

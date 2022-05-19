@@ -62,6 +62,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 bool ready = false;
                 Hashtable playerProperties = new Hashtable();
                 playerProperties.Add("isReady", ready);
+                playerProperties.Add("points", 0);
+                playerProperties.Add("voteCount", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
             foreach (Player listPlayer in PhotonNetwork.PlayerList)

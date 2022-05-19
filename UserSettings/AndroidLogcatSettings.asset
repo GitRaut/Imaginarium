@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "16ab5f1a",
         "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 30008,
+        "processId": 19666,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,127 +11,55 @@
         {
             "deviceId": "16ab5f1a",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 27796,
-            "exited": true
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 28356,
-            "exited": true
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 28856,
-            "exited": true
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 30490,
-            "exited": true
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 4079,
-            "exited": true
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 6249,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 22352,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 23824,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 24339,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 27860,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 28599,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 29493,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 32135,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 32619,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 2362,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 2898,
-            "exited": false
-        },
-        {
-            "deviceId": "16ab5f1a",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 3266,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "16ab5f1a",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 4013,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "16ab5f1a",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 4423,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "16ab5f1a",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 28928,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "16ab5f1a",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 30008,
+            "exited": true
+        },
+        {
+            "deviceId": "16ab5f1a",
+            "name": "com.miui.home",
+            "processId": 31678,
+            "exited": false
+        },
+        {
+            "deviceId": "16ab5f1a",
+            "name": "com.android.settings",
+            "processId": 18068,
+            "exited": false
+        },
+        {
+            "deviceId": "16ab5f1a",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 18329,
+            "exited": false
+        },
+        {
+            "deviceId": "16ab5f1a",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 19666,
             "exited": false
         }
     ],
