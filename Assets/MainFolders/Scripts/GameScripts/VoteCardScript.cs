@@ -28,6 +28,7 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
                 
         image.sprite = GameManagerScript.Instance.allCards[cards[index]];
         id = cards[index];
+
         /*do
         {
             index = Random.Range(0, cards.Length - 1);

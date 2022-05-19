@@ -29,6 +29,15 @@ public class VoteScript : MonoBehaviour
             }
             properties.Add("turn_state", TurnStates.RESULTS);
         }
+
+        Transform cards = transform.Find("Cards");
+        foreach (Transform voteCard in cards)
+        {
+            VoteCardScript scr = voteCard.GetComponent<VoteCardScript>();
+            scr.outline.effectDistance = new Vector2(0,0);
+        }
+        cardTransform = null;
+
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 }
