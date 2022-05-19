@@ -64,8 +64,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 bool ready = false;
                 Hashtable playerProperties = new Hashtable();
                 playerProperties.Add("isReady", ready);
-                playerProperties.Add("points", 0);
-                playerProperties.Add("voteCount", 0);
+                playerProperties.Add("score", 0);
+                // playerProperties.Add("voteCount", 0);
                 playerProperties.Add("selectedCard", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
@@ -151,9 +151,30 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             }
         }
 
-        if (changedProps.ContainsKey("isReady"))
+        if (changedProps.ContainsKey("score"))
         {
+            UpdateResultsScreen();
+        }
+    }
 
+    private void UpdateResultsScreen(){
+        Transform text = resultScreen.transform.Find("UserList");
+        TMP_Text textUi = text.GetComponent<TMP_Text>();
+        if (textUi)
+        {
+            string scoreText = "";
+ 
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                int score = 0;
+                if (player.CustomProperties.ContainsKey("score")) score = (int)player.CustomProperties["score"];
+                int lastAdd = 0;
+                if (player.CustomProperties.ContainsKey("lastAdd")) lastAdd = (int)player.CustomProperties["lastAdd"];
+                
+                scoreText += " - " + player.NickName + " " + score + "(+" + lastAdd + ")" + "\n\n";
+            }
+
+            textUi.text = scoreText;
         }
     }
 
@@ -167,6 +188,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         Debug.Log("CHOSING_SCREEN");
+                        clearTurnData();
                         resultScreen.gameObject.SetActive(false);
                         mpChooseScreen.gameObject.SetActive(true);
                     }
@@ -206,6 +228,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     break;
                 case TurnStates.RESULTS:
                     Debug.Log("RESULT_SCREEN");
+                    CalculateResults();
                     voteScreen.gameObject.SetActive(false);
                     resultScreen.gameObject.SetActive(true);
                     break;
@@ -226,6 +249,146 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
                 card.ShowCardInfo();
             }
+        }
+    }
+
+    private Player MainPlayer(){
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.CustomProperties.ContainsKey("myTurn") && (bool)player.CustomProperties["myTurn"])
+            {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    private void CalculateResults(){
+        Hashtable data = new Hashtable();
+        bool allVotes = true;
+        bool hasVotes = false;
+        Player mainPlayer = MainPlayer(); 
+
+        Hashtable mainPlayerProperties = mainPlayer.CustomProperties;
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            if (p != mainPlayer)
+            {
+                if (mainPlayerProperties.ContainsKey("vote_" + p.ActorNumber.ToString()))
+                {
+                    hasVotes = true;
+                }else{
+                    allVotes = false;
+                }
+            }
+        }
+
+        if (allVotes)
+        {
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                if (p != mainPlayer)
+                {
+                    int initialScore = 0;
+                    if (p.CustomProperties.ContainsKey("score")) initialScore = (int)p.CustomProperties["score"];
+                    Hashtable properties = new Hashtable();
+                    properties.Add("score", initialScore + 3);
+                    properties.Add("lastAdd", 3);
+                    p.SetCustomProperties(properties);
+                }
+            }
+        }else if(!allVotes && hasVotes){
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                int initialScore = 0;
+                if (p.CustomProperties.ContainsKey("score")) initialScore = (int)p.CustomProperties["score"];
+
+                int addScore = 0;
+                if (p == mainPlayer) addScore = 3;
+
+                foreach (Player anotherPlayer in PhotonNetwork.PlayerList)
+                {
+                    if (anotherPlayer != mainPlayer && anotherPlayer != p)
+                    {
+                        if (
+                            p.CustomProperties.ContainsKey("vote_" + anotherPlayer.ActorNumber.ToString()) && 
+                            (bool)p.CustomProperties["vote_" + anotherPlayer.ActorNumber.ToString()]
+                        )
+                        {
+                            addScore += 1;
+                        }
+                    }
+                }
+
+                if (addScore > 0)
+                {
+                    Hashtable properties = new Hashtable();
+                    properties.Add("score", initialScore + addScore);
+                    properties.Add("lastAdd", addScore);
+                    p.SetCustomProperties(properties);
+                }
+            }
+        }else if(!allVotes && !hasVotes){
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                int initialScore = 0;
+                if (p.CustomProperties.ContainsKey("score")) initialScore = (int)p.CustomProperties["score"];
+
+                int addScore = 2;
+
+                foreach (Player anotherPlayer in PhotonNetwork.PlayerList)
+                {
+                    if (anotherPlayer != mainPlayer && anotherPlayer != p)
+                    {
+                        if (
+                            p.CustomProperties.ContainsKey("vote_" + anotherPlayer.ActorNumber.ToString()) && 
+                            (bool)p.CustomProperties["vote_" + anotherPlayer.ActorNumber.ToString()]
+                        )
+                        {
+                            addScore += 1;
+                        }
+                    }
+                }
+
+                if (addScore > 0)
+                {
+                    Hashtable properties = new Hashtable();
+                    properties.Add("score", initialScore + addScore);
+                    properties.Add("lastAdd", addScore);
+                    p.SetCustomProperties(properties);
+                }
+            }
+        }
+
+        // foreach (Player player in PhotonNetwork.PlayerList)
+        // {
+        //     int totalVotes = 0;
+        //     Hashtable playerProperties = player.CustomProperties;
+
+        //     foreach (Player p in PhotonNetwork.PlayerList)
+        //     {
+        //         if (playerProperties.ContainsKey("vote_" + p.ActorNumber.ToString()))
+        //         {
+        //             totalVotes += 1;
+        //         }
+        //     }
+
+        //     data[player.ActorNumber.ToString()] = totalVotes;
+        // }
+    }
+
+    private void clearTurnData(){
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            Hashtable playerProperties = new Hashtable();
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                if (playerProperties.ContainsKey("vote_" + p.ActorNumber.ToString()))
+                {
+                    playerProperties.Add("vote_" + p.ActorNumber.ToString(), null);
+                }
+            }
+            player.SetCustomProperties(playerProperties);
         }
     }
 }

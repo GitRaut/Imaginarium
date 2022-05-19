@@ -8,6 +8,7 @@ using Photon.Pun;
 public class VoteCardScript : MonoBehaviour, IPointerClickHandler
 {
     public Image image;
+    public Outline outline;
     public Transform cardsField;
     public VoteScript voteTransfrom;
     private GameManagerScript gameManager;
@@ -37,12 +38,22 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("myTurn") && (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
+            return;
+
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         VoteCardScript card = transform.GetComponent<VoteCardScript>();
         if (card.id != (int)PhotonNetwork.LocalPlayer.CustomProperties["selectedCard"])
         {
-            Debug.Log("green");
-            image.color = new Color(139, 255, 136, 255);
+            foreach (Transform voteCard in transform.parent)
+            {
+                if (voteCard != transform)
+                {
+                    VoteCardScript scr = voteCard.GetComponent<VoteCardScript>();
+                    scr.outline.effectDistance = new Vector2(0,0);
+                }
+            }
+            outline.effectDistance = new Vector2(10,10);
             voteTransfrom.cardTransform = this.transform;
         }
     }

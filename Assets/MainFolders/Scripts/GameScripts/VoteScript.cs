@@ -15,14 +15,15 @@ public class VoteScript : MonoBehaviour
 
         if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.VOTING)
         {
-            ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
             VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
             foreach (Player listPlayer in PhotonNetwork.PlayerList)
             {
                 if (card.id == (int)listPlayer.CustomProperties["selectedCard"])
                 {
-                    int voteCount = (int)listPlayer.CustomProperties["voteCount"];
-                    playerProperties.Add("voteCount", voteCount + 1);
+                    ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+                    // int voteCount = (int)listPlayer.CustomProperties["voteCount"];
+                    // playerProperties.Add("voteCount", voteCount + 1);
+                    playerProperties.Add("vote_" + PhotonNetwork.LocalPlayer.ActorNumber.ToString(), true);
                     listPlayer.SetCustomProperties(playerProperties);
                 }
             }

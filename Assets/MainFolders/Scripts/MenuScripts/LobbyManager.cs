@@ -60,7 +60,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     private void UpdateInterface() {
-         string playerList = "";
+        string playerList = "";
  
         foreach (var player in PhotonNetwork.PlayerList)
         {
