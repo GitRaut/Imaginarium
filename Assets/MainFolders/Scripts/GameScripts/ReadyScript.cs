@@ -18,6 +18,7 @@ public class ReadyScript : MonoBehaviour
     public void OnClick()
     {
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
         if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.MP_CHOSING)
         {
             properties.Add("asoc", input_field.text);
@@ -28,6 +29,7 @@ public class ReadyScript : MonoBehaviour
             int[] cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
             cards[PhotonNetwork.LocalPlayer.ActorNumber - 1] = card.id;
             properties.Add("selected_cards", cards);
+            playerProperties.Add("selectedCard", card.id);
 
             //clear and update screen after choosing card
             cardField.GetChild(0).GetComponent<CardScript>().def_parent = hand;
@@ -44,6 +46,7 @@ public class ReadyScript : MonoBehaviour
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
     private void Start()

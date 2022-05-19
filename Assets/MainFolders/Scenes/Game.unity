@@ -4117,6 +4117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsField: {fileID: 1827016013}
   cardPrefab: {fileID: 3299749815974252303, guid: d132dc7c5a8567340b109e9ccd89105e, type: 3}
+  cardTransform: {fileID: 0}
 --- !u!1 &1610600738
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,8 +4202,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 435696238}
-        m_TargetAssemblyTypeName: PButtonsScript, Assembly-CSharp
+      - m_Target: {fileID: 1547700710}
+        m_TargetAssemblyTypeName: VoteScript, Assembly-CSharp
         m_MethodName: OnClickVote
         m_Mode: 1
         m_Arguments:

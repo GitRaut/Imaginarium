@@ -21,13 +21,14 @@ public class PButtonsScript : MonoBehaviour
         if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.P_CHOSING)
         {
             properties.Add("turn_state", TurnStates.VOTING);
-            playerProperties.Add("isReady", true);
+            //playerProperties.Add("isReady", true);
 
             //member card in selected cards
             CardScript card = cardField.GetChild(0).GetComponent<CardScript>();
             int[] selected_cards = (int[])PhotonNetwork.CurrentRoom.CustomProperties["selected_cards"];
             selected_cards[PhotonNetwork.LocalPlayer.ActorNumber - 1] = card.id;
             properties.Add("selected_cards", selected_cards);
+            playerProperties.Add("selectedCard", card.id);
 
             //clear and update screen after choosing card
             cardField.GetChild(0).GetComponent<CardScript>().def_parent = hand;
@@ -42,18 +43,6 @@ public class PButtonsScript : MonoBehaviour
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
-    }
-
-    public void OnClickVote()
-    {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-
-        if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.VOTING)
-        {
-            properties.Add("turn_state", TurnStates.RESULTS);
-        }
-
-        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 
     public void OnClickResult()

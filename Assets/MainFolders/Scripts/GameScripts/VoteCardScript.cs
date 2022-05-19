@@ -9,6 +9,7 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
 {
     public Image image;
     public Transform cardsField;
+    public VoteScript voteTransfrom;
     private GameManagerScript gameManager;
     public int id;
 
@@ -35,7 +36,13 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("green");
-        image.color = new Color(139, 255, 136, 255);
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+        VoteCardScript card = transform.GetComponent<VoteCardScript>();
+        if (card.id != (int)PhotonNetwork.LocalPlayer.CustomProperties["selectedCard"])
+        {
+            Debug.Log("green");
+            image.color = new Color(139, 255, 136, 255);
+            voteTransfrom.cardTransform = this.transform;
+        }
     }
 }
