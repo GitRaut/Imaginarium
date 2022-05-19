@@ -12,7 +12,8 @@ enum TurnStates
     MP_CHOSING = 0,
     P_CHOSING = 1,
     VOTING = 2,
-    RESULTS = 3
+    RESULTS = 3,
+    FINISH = 4
 }
 
 public class GameManagerScript : MonoBehaviourPunCallbacks
@@ -32,6 +33,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public Transform pChooseScreen;
     public Transform voteScreen;
     public Transform resultScreen;
+    public Transform finishScreen;
 
     public Transform cardPrefab;
     public Player mainPlayer;
@@ -295,6 +297,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                     voteScreen.gameObject.SetActive(false);
                     resultScreen.gameObject.SetActive(true);
+                    break;
+                case TurnStates.FINISH:
+                    resultScreen.gameObject.SetActive(false);
+                    finishScreen.gameObject.SetActive(true);
                     break;
             }
         }
