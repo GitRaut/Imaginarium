@@ -65,15 +65,14 @@ public class PButtonsScript : MonoBehaviour
             // if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"])
             if (PhotonNetwork.IsMasterClient)
             {
-                // gameManager.SetTurn(PhotonNetwork.LocalPlayer.GetNext());
-                if (GameManagerScript.Instance.remainingCards.Count > 0)
+                if (GameManagerScript.Instance.GameFinished())
                 {
-                    GameManagerScript.Instance.SetTurn(GameManagerScript.Instance.mainPlayer.GetNext());
-                    properties.Add("turn_state", TurnStates.MP_CHOSING);
+                    properties.Add("turn_state", TurnStates.FINISH);
                 }
                 else
                 {
-                    properties.Add("turn_state", TurnStates.FINISH);
+                    GameManagerScript.Instance.SetTurn(GameManagerScript.Instance.mainPlayer.GetNext());
+                    properties.Add("turn_state", TurnStates.MP_CHOSING);
                 }
             }
         }

@@ -491,4 +491,31 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             player.SetCustomProperties(playerProperties);
         }
     }
+
+    public bool GameFinished(){
+        bool playersHasCards = false;
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            int[] myCards = (int[])PhotonNetwork.LocalPlayer.CustomProperties["myCards"];
+            foreach (int card in myCards)
+            {
+                if (card != -1)
+                {
+                    playersHasCards = true;
+                    break;
+                }
+            }
+            if (playersHasCards)
+            {
+                break;
+            }
+        }
+
+        if (remainingCards.Count == 0 && !playersHasCards)
+        {
+            return true;
+        }
+        return false;
+    }
 }
