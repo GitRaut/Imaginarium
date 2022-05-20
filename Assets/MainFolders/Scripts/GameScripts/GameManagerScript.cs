@@ -50,7 +50,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     private void Awake()
     {
         // int col = (allCards.Length / PhotonNetwork.CurrentRoom.PlayerCount) * PhotonNetwork.CurrentRoom.PlayerCount;
-        int col = 14;
+        int col = 9;
         for (int i = 0; i < col; i++)
         {
             remainingCards.Add(i);
@@ -70,7 +70,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 // playerProperties.Add("isReady", ready);
                 Hashtable playerProperties = new Hashtable();
                 playerProperties.Add("score", 0);
-                playerProperties.Add("selectedCard", 0);
+                playerProperties.Add("selectedCard", -1);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             }
 
@@ -489,7 +489,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
             }
             playerProperties.Add("voted", null);
-            playerProperties.Add("selectedCard", null);
+            playerProperties.Add("selectedCard", -1);
             player.SetCustomProperties(playerProperties);
         }
     }

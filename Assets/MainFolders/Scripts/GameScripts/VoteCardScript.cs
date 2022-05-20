@@ -36,6 +36,7 @@ public class VoteCardScript : MonoBehaviour, IPointerClickHandler
 
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         VoteCardScript card = transform.GetComponent<VoteCardScript>();
+        Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("selectedCard"));
         if (card.id != (int)PhotonNetwork.LocalPlayer.CustomProperties["selectedCard"])
         {
             foreach (Transform voteCard in transform.parent)
