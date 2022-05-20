@@ -42,9 +42,14 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+<<<<<<< Updated upstream
         selectedCards = new int[PhotonNetwork.CountOfPlayers];
         remainingCards = new int[50];
         for(int i = 0; i < remainingCards.Length; i++)
+=======
+        int col = (allCards.Length / PhotonNetwork.CurrentRoom.PlayerCount) * PhotonNetwork.CurrentRoom.PlayerCount;
+        for (int i = 0; i < col; i++)
+>>>>>>> Stashed changes
         {
             remainingCards[i] = i;
         }
@@ -168,6 +173,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                     break;
                 case TurnStates.P_CHOSING:
+                    Transform field = pChooseScreen.Find("SetField");
+                    field.GetComponent<PFieldScript>().is_select = false;
                     if ( !(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         Debug.Log("CHOSING_SCREEN");

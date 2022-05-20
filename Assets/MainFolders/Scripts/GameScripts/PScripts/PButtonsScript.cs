@@ -40,7 +40,12 @@ public class PButtonsScript : MonoBehaviour
 
             gameManager.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
         }
+<<<<<<< Updated upstream
 
+=======
+        cardField.GetComponent<PFieldScript>().is_select = true;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+>>>>>>> Stashed changes
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }

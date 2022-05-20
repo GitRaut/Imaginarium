@@ -10,12 +10,17 @@ public class PFieldScript : MonoBehaviour, IDropHandler
     public Transform hand;
     public Transform cross_button;
     public Button ready_button;
+    public bool is_select;
 
     public void OnDrop(PointerEventData eventData)
     {
         CardScript card = eventData.pointerDrag.GetComponent<CardScript>();
 
+<<<<<<< Updated upstream
         if (card)
+=======
+        if (card && !card.is_used && !is_select)
+>>>>>>> Stashed changes
         {
             for (int i = 0; i < hand.childCount; i++)
                 hand.GetChild(i).GetComponent<CardScript>().is_used = true;

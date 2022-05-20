@@ -1,10 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
---- !u!114 &-1685292384699451837
-=======
---- !u!114 &-1552147838676849234
->>>>>>> origin/master
+--- !u!114 &-6109364892430781894
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,20 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 536372c49e1ca914d822849d36de938c, type: 3}
   m_Name: Android Providers
   m_EditorClassIdentifier: 
   m_AutomaticLoading: 0
   m_AutomaticRunning: 0
   m_Loaders: []
-=======
-  m_Script: {fileID: 11500000, guid: 179fc3111e144bc4688dca4038b3265d, type: 3}
-  m_Name: Android Settings
-  m_EditorClassIdentifier: 
-  m_LoaderManagerInstance: {fileID: 4833244823214684956}
-  m_InitManagerOnStart: 1
->>>>>>> origin/master
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -41,13 +29,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Keys: 07000000
   Values:
-<<<<<<< HEAD
-  - {fileID: 7471360363249796665}
---- !u!114 &7471360363249796665
-=======
-  - {fileID: -1552147838676849234}
---- !u!114 &4833244823214684956
->>>>>>> origin/master
+  - {fileID: 1159576511876138421}
+--- !u!114 &1159576511876138421
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,18 +39,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 179fc3111e144bc4688dca4038b3265d, type: 3}
   m_Name: Android Settings
   m_EditorClassIdentifier: 
-  m_LoaderManagerInstance: {fileID: -1685292384699451837}
+  m_LoaderManagerInstance: {fileID: -6109364892430781894}
   m_InitManagerOnStart: 1
-=======
-  m_Script: {fileID: 11500000, guid: 536372c49e1ca914d822849d36de938c, type: 3}
-  m_Name: Android Providers
-  m_EditorClassIdentifier: 
-  m_AutomaticLoading: 0
-  m_AutomaticRunning: 0
-  m_Loaders:
-  - {fileID: 11400000, guid: 9418790226d328743b08e0395ca428e5, type: 2}
->>>>>>> origin/master
