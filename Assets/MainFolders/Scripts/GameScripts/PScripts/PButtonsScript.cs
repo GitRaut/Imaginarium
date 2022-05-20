@@ -19,7 +19,7 @@ public class PButtonsScript : MonoBehaviour
 
         if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.P_CHOSING)
         {
-            properties.Add("turn_state", TurnStates.VOTING);
+            // properties.Add("turn_state", TurnStates.VOTING);
             //playerProperties.Add("isReady", true);
 
             //member card in selected cards

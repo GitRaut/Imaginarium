@@ -228,45 +228,52 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
         if (changedProps.ContainsKey("selectedCard"))
         {
-            bool allSelected = true;
-            foreach (Player player in PhotonNetwork.PlayerList){
-                if (player != mainPlayer)
-                {
-                    Hashtable properties = player.CustomProperties;
-                    if (!properties.ContainsKey("selectedCard") || (int)properties["selectedCard"] == -1)
+            if (PhotonNetwork.IsMasterClient)
+            {
+                bool allSelected = true;
+                foreach (Player player in PhotonNetwork.PlayerList){
+                    if (player != mainPlayer)
                     {
-                        allSelected = false;
+                        Hashtable properties = player.CustomProperties;
+                        Debug.Log((int)properties["selectedCard"]);
+                        if (!properties.ContainsKey("selectedCard") || (int)properties["selectedCard"] == -1)
+                        {
+                            allSelected = false;
+                        }
                     }
                 }
-            }
 
-            if (allSelected)
-            {
-                Hashtable roomProperties = new Hashtable();
-                roomProperties.Add("turn_state", TurnStates.VOTING);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+                if (allSelected)
+                {
+                    Hashtable roomProperties = new Hashtable();
+                    roomProperties.Add("turn_state", TurnStates.VOTING);
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+                }
             }
         }
 
         if (changedProps.ContainsKey("voted"))
         {
-            bool allVoted = true;
-            foreach (Player player in PhotonNetwork.PlayerList){
-                if (player != mainPlayer)
-                {
-                    Hashtable properties = player.CustomProperties;
-                    if (!properties.ContainsKey("voted") || !(bool)properties["voted"])
+            if (PhotonNetwork.IsMasterClient)
+            {
+                bool allVoted = true;
+                foreach (Player player in PhotonNetwork.PlayerList){
+                    if (player != mainPlayer)
                     {
-                        allVoted = false;
+                        Hashtable properties = player.CustomProperties;
+                        if (!properties.ContainsKey("voted") || !(bool)properties["voted"])
+                        {
+                            allVoted = false;
+                        }
                     }
                 }
-            }
 
-            if (allVoted)
-            {
-                Hashtable roomProperties = new Hashtable();
-                roomProperties.Add("turn_state", TurnStates.RESULTS);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+                if (allVoted)
+                {
+                    Hashtable roomProperties = new Hashtable();
+                    roomProperties.Add("turn_state", TurnStates.RESULTS);
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+                }
             }
         }
     }
