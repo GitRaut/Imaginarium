@@ -11,8 +11,6 @@ public class VoteScript : MonoBehaviour
 
     public void OnClickVote()
     {
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-
         if (!(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.VOTING)
         {
             VoteCardScript card = cardTransform.GetComponent<VoteCardScript>();
@@ -27,7 +25,6 @@ public class VoteScript : MonoBehaviour
                     listPlayer.SetCustomProperties(playerProperties);
                 }
             }
-            properties.Add("turn_state", TurnStates.RESULTS);
         }
 
         Transform cards = transform.Find("Cards");
@@ -38,6 +35,8 @@ public class VoteScript : MonoBehaviour
         }
         cardTransform = null;
 
-        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+        ExitGames.Client.Photon.Hashtable localPlayerProperties = new ExitGames.Client.Photon.Hashtable();
+        localPlayerProperties.Add("voted", true);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(localPlayerProperties);
     }
 }

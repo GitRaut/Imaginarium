@@ -24,8 +24,6 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public TMP_Text asoc_field;
     public Sprite[] allCards;
     public List<int> remainingCards;
-    // public List< remainingCards;
-    // public int[] remainingCards;
 
     [Header("Screens")]
     public Transform mpChooseScreen;
@@ -63,9 +61,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
             foreach (Player listPlayer in PhotonNetwork.PlayerList)
             {
-                bool ready = false;
+                // bool ready = false;
+                // playerProperties.Add("isReady", ready);
                 Hashtable playerProperties = new Hashtable();
-                playerProperties.Add("isReady", ready);
                 playerProperties.Add("score", 0);
                 playerProperties.Add("selectedCard", 0);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
@@ -221,6 +219,50 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
         if (changedProps.ContainsKey("myTurn") && (bool)changedProps["myTurn"]){
             mainPlayer = targetPlayer;
+        }
+
+        if (changedProps.ContainsKey("selectedCard"))
+        {
+            bool allSelected = true;
+            foreach (Player player in PhotonNetwork.PlayerList){
+                if (player != mainPlayer)
+                {
+                    Hashtable properties = player.CustomProperties;
+                    if (!properties.ContainsKey("selectedCard") || (int)properties["selectedCard"] == -1)
+                    {
+                        allSelected = false;
+                    }
+                }
+            }
+
+            if (allSelected)
+            {
+                Hashtable roomProperties = new Hashtable();
+                roomProperties.Add("turn_state", TurnStates.VOTING);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+            }
+        }
+
+        if (changedProps.ContainsKey("voted"))
+        {
+            bool allVoted = true;
+            foreach (Player player in PhotonNetwork.PlayerList){
+                if (player != mainPlayer)
+                {
+                    Hashtable properties = player.CustomProperties;
+                    if (!properties.ContainsKey("voted") || !(bool)properties["voted"])
+                    {
+                        allVoted = false;
+                    }
+                }
+            }
+
+            if (allVoted)
+            {
+                Hashtable roomProperties = new Hashtable();
+                roomProperties.Add("turn_state", TurnStates.RESULTS);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+            }
         }
     }
 
@@ -423,6 +465,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 {
                     playerProperties.Add("vote_" + p.ActorNumber.ToString(), null);
                 }
+
+                playerProperties.Add("voted", null);
+                playerProperties.Add("selectedCard", null);
             }
             player.SetCustomProperties(playerProperties);
         }
