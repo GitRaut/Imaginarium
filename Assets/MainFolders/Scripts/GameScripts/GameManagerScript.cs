@@ -24,6 +24,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     public TMP_Text asoc_field;
     public Sprite[] allCards;
     public List<int> remainingCards;
+    public TMP_Text winnerName;
     // public List< remainingCards;
     // public int[] remainingCards;
 
@@ -298,6 +299,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     resultScreen.gameObject.SetActive(true);
                     break;
                 case TurnStates.FINISH:
+                    SetWinner();
                     resultScreen.gameObject.SetActive(false);
                     finishScreen.gameObject.SetActive(true);
                     break;
@@ -317,6 +319,21 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    private void SetWinner()
+    {
+        int max = 0;
+        foreach(Player listPlayer in PhotonNetwork.PlayerList)
+        {
+            int score = (int)listPlayer.CustomProperties["score"];
+            if(score > max)
+            {
+                max = score;
+                winnerName.text = listPlayer.NickName;
+            }
+        }
+    }
+
     private void CalculateResults(){
         bool allVotes = true;
         bool hasVotes = false;
