@@ -485,9 +485,9 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     playerProperties.Add("vote_" + p.ActorNumber.ToString(), null);
                 }
 
-                playerProperties.Add("voted", null);
-                playerProperties.Add("selectedCard", null);
             }
+            playerProperties.Add("voted", null);
+            playerProperties.Add("selectedCard", null);
             player.SetCustomProperties(playerProperties);
         }
     }
