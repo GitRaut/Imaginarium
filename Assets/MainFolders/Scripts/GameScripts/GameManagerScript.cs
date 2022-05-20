@@ -49,7 +49,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        int col = allCards.Length / PhotonNetwork.CurrentRoom.PlayerCount;
+        // int col = (allCards.Length / PhotonNetwork.CurrentRoom.PlayerCount) * PhotonNetwork.CurrentRoom.PlayerCount;
+        int col = 14;
         for (int i = 0; i < col; i++)
         {
             remainingCards.Add(i);
@@ -374,7 +375,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             if(score > max)
             {
                 max = score;
-                winnerName.text = listPlayer.NickName;s
+                winnerName.text = listPlayer.NickName;
             }
         }
     }
