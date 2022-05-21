@@ -49,8 +49,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        // int col = (allCards.Length / PhotonNetwork.CurrentRoom.PlayerCount) * PhotonNetwork.CurrentRoom.PlayerCount;
-        int col = 9;
+        int col = (allCards.Length / PhotonNetwork.CurrentRoom.PlayerCount) * PhotonNetwork.CurrentRoom.PlayerCount;
         for (int i = 0; i < col; i++)
         {
             remainingCards.Add(i);
