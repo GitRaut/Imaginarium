@@ -319,6 +319,8 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                     break;
                 case TurnStates.P_CHOSING:
+                    Transform field = pChooseScreen.Find("SetField");
+                    field.GetComponent<PFieldScript>().is_select = false;
                     if ( !(bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         waitingScreen.gameObject.SetActive(false);

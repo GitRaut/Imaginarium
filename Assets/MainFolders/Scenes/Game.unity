@@ -2370,6 +2370,42 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9594b664c116dd846864f10a924bcceb, type: 3}
   - {fileID: 21300000, guid: 2af971fa5d7a93344b243b03a840cc04, type: 3}
   - {fileID: 21300000, guid: 664234da924fc3d41bd899eac99ec1e9, type: 3}
+  - {fileID: 21300000, guid: 7e6b8dceb66302d4fa78867a89bf85a8, type: 3}
+  - {fileID: 21300000, guid: 3a00dcf361bca1a409b441670b70698a, type: 3}
+  - {fileID: 21300000, guid: 2e40197ac466d6a408f7cdefc0f4d8bd, type: 3}
+  - {fileID: 21300000, guid: ac8b03081343f1b4ba1c8bc7260a5def, type: 3}
+  - {fileID: 21300000, guid: 082c73282883c43448592cf512e83823, type: 3}
+  - {fileID: 21300000, guid: 9dbca0462bc8bc44b82b1bcded705f5a, type: 3}
+  - {fileID: 21300000, guid: 2725e9dd99cd7104f837fdc22ac82eba, type: 3}
+  - {fileID: 21300000, guid: 84e651151d942c94aa59472334b371e8, type: 3}
+  - {fileID: 21300000, guid: 7a86dbbd3dedce84398d7f25265c3b29, type: 3}
+  - {fileID: 21300000, guid: a1e7c418565075a4b921f160f31d2f47, type: 3}
+  - {fileID: 21300000, guid: 31a0ae22cd0ed7f4fb4e17ccfba2731a, type: 3}
+  - {fileID: 21300000, guid: 5881749093c970e4d989bb1ac9a210be, type: 3}
+  - {fileID: 21300000, guid: c666afd69412a4440a84c67dfea7512c, type: 3}
+  - {fileID: 21300000, guid: 0470aae9f7f7d8541b467b3dce362740, type: 3}
+  - {fileID: 21300000, guid: 2b028eca0bb8f0841a8f34385028c495, type: 3}
+  - {fileID: 21300000, guid: 1ddeb76e73b1ef94ca8b1ded1f2457ce, type: 3}
+  - {fileID: 21300000, guid: c563de49b38de0840ad500b53bf9f9a2, type: 3}
+  - {fileID: 21300000, guid: 5bf8a3a866348dd4e97c27116826905c, type: 3}
+  - {fileID: 21300000, guid: 27f992a03dee6c04c975e62f303559a6, type: 3}
+  - {fileID: 21300000, guid: 5c8c7c5aaa1a9aa4a9200d54fe78be58, type: 3}
+  - {fileID: 21300000, guid: f255853861e39864bb471bdde47fe5b9, type: 3}
+  - {fileID: 21300000, guid: d828e224edb028940a8c7991e9443945, type: 3}
+  - {fileID: 21300000, guid: bf0b3a565cbdc06449ce38b58d4d9cea, type: 3}
+  - {fileID: 21300000, guid: f904c0c4fcff1ff4d8641a63c192faab, type: 3}
+  - {fileID: 21300000, guid: a50d5ff9a4a4d964798ee59738c55399, type: 3}
+  - {fileID: 21300000, guid: b60150d73a7b0e14f9560a7af722db56, type: 3}
+  - {fileID: 21300000, guid: 5ca21fcac8efbd54fa50627b98981065, type: 3}
+  - {fileID: 21300000, guid: 80d98b05ab5e4c34db369f59ccb13003, type: 3}
+  - {fileID: 21300000, guid: 6845884fd749c74489ec25b343911891, type: 3}
+  - {fileID: 21300000, guid: e63ee695f7141c9468304679a01c95a7, type: 3}
+  - {fileID: 21300000, guid: 07d139d1d3e535a4c992de4bf7ae6704, type: 3}
+  - {fileID: 21300000, guid: d826d6ff0fc4b4e468c4b3f4ca740163, type: 3}
+  - {fileID: 21300000, guid: 80f332e3fe6d54c4a9e81723b85061ba, type: 3}
+  - {fileID: 21300000, guid: 975c539876948f94da7bf709a0574669, type: 3}
+  - {fileID: 21300000, guid: 67c87f31b16b4624c86f1c56085ddcc4, type: 3}
+  - {fileID: 21300000, guid: 665f94b82b977f7458c27b2059be2458, type: 3}
   remainingCards: 
   winnerName: {fileID: 1225683296}
   mpChooseScreen: {fileID: 516976200}

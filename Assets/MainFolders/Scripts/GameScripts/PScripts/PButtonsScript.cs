@@ -52,6 +52,7 @@ public class PButtonsScript : MonoBehaviour
             // GameManagerScript.Instance.GiveCards(card.cardIndex, card.cardIndex + 1, PhotonNetwork.LocalPlayer);
         }
 
+        cardField.GetComponent<PFieldScript>().is_select = true;
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
