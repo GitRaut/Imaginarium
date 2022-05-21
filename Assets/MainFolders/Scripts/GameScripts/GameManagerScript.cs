@@ -305,7 +305,6 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
             switch ((TurnStates)propertiesThatChanged["turn_state"])
             {
                 case TurnStates.MP_CHOSING:
-                    if (PhotonNetwork.IsMasterClient) clearTurnData();
                     if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["myTurn"] )
                     {
                         resultScreen.gameObject.SetActive(false);
@@ -347,6 +346,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                 case TurnStates.RESULTS:
                     if (PhotonNetwork.IsMasterClient) {
                         CalculateResults();
+                        clearTurnData();
                         GiveCardsNew();
                     }
                     voteScreen.gameObject.SetActive(false);
