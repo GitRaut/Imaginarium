@@ -242,7 +242,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                 }
 
-                if (allSelected)
+                if (allSelected && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.P_CHOSING)
                 {
                     Hashtable roomProperties = new Hashtable();
                     roomProperties.Add("turn_state", TurnStates.VOTING);
@@ -267,7 +267,7 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
                     }
                 }
 
-                if (allVoted)
+                if (allVoted && (TurnStates)PhotonNetwork.CurrentRoom.CustomProperties["turn_state"] == TurnStates.VOTING)
                 {
                     Hashtable roomProperties = new Hashtable();
                     roomProperties.Add("turn_state", TurnStates.RESULTS);
