@@ -75,7 +75,9 @@ public class PButtonsScript : MonoBehaviour
                 {
                     if (GameManagerScript.Instance.mainPlayer.ActorNumber == PhotonNetwork.CurrentRoom.PlayerCount)
                     {
-                        Player player = PhotonNetwork.CurrentRoom.Players[0];
+                        Player player = PhotonNetwork.CurrentRoom.Players[1];
+                        Debug.Log(GameManagerScript.Instance.mainPlayer.ActorNumber + "actor number");
+                        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount + "players count");
                         GameManagerScript.Instance.SetTurn(player);
                     }
                     else
