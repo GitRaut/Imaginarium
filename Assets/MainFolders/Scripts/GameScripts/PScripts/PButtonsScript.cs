@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Realtime;
 
 public class PButtonsScript : MonoBehaviour
 {
@@ -72,7 +73,15 @@ public class PButtonsScript : MonoBehaviour
                 }
                 else
                 {
-                    GameManagerScript.Instance.SetTurn(GameManagerScript.Instance.mainPlayer.GetNext());
+                    if (GameManagerScript.Instance.mainPlayer.ActorNumber == PhotonNetwork.CurrentRoom.PlayerCount)
+                    {
+                        Player player = PhotonNetwork.CurrentRoom.Players[0];
+                        GameManagerScript.Instance.SetTurn(player);
+                    }
+                    else
+                    {
+                        GameManagerScript.Instance.SetTurn(GameManagerScript.Instance.mainPlayer.GetNext());
+                    }
                     properties.Add("turn_state", TurnStates.MP_CHOSING);
                 }
             }
